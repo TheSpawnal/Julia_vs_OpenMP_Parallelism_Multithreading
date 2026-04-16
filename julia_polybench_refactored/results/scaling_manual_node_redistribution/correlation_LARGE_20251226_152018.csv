@@ -1,0 +1,5 @@
+benchmark,dataset,strategy,threads,min_ms,median_ms,mean_ms,std_ms,gflops,speedup,efficiency,verified
+correlation,LARGE,sequential,4,1098.135,1102.302,1102.796,3.121,2.15,1.00,100.0,PASS
+correlation,LARGE,threads,4,115.386,116.332,116.276,0.430,20.46,9.52,237.9,PASS
+correlation,LARGE,colmajor,4,118.326,118.452,118.492,0.160,19.95,9.28,232.0,PASS
+correlation,LARGE,tiled,4,107.936,108.069,108.112,0.135,21.87,10.17,254.3,PASS

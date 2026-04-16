@@ -1,0 +1,121 @@
+======================================================================
+NUSSINOV RNA FOLDING BENCHMARK
+======================================================================
+Julia version: 1.11.4
+Threads: 1
+BLAS threads: 32
+CPU threads: 32
+Dataset: LARGE (n=2500)
+Memory: 23.84 MB
+NOTE: Limited parallelism due to anti-diagonal dependencies
+
+Reference optimal score: 1250
+
+------------------------------------------------------------------------------------------
+Strategy         |    Min(ms) | Median(ms) |   Mean(ms) |  GFLOP/s |  Speedup | Eff(%)
+------------------------------------------------------------------------------------------
+sequential       |   3127.953 |   3247.746 |   3295.365 |     0.83 |     1.00x |  100.0
+simd             |   3658.348 |   3769.837 |   3763.594 |     0.71 |     0.86x |   85.5
+wavefront        |   4116.089 |   4334.471 |   4355.982 |     0.63 |     0.76x |   76.0
+tiled            |   4046.198 |   4171.908 |   4154.069 |     0.64 |     0.77x |   77.3
+------------------------------------------------------------------------------------------
+
+NOTE: Threaded strategies slower due to:
+  - Anti-diagonal parallelism limited to n-d cells
+  - Synchronization barrier after each diagonal
+  - Threading overhead exceeds computation for small diagonals
+  - Consider LARGE dataset for better scaling
+
+Results exported to: results/nussinov_LARGE_20251225_213052.csv
+======================================================================
+NUSSINOV RNA FOLDING BENCHMARK
+======================================================================
+Julia version: 1.11.4
+Threads: 2
+BLAS threads: 1
+CPU threads: 32
+Dataset: LARGE (n=2500)
+Memory: 23.84 MB
+NOTE: Limited parallelism due to anti-diagonal dependencies
+
+Reference optimal score: 1250
+
+------------------------------------------------------------------------------------------
+Strategy         |    Min(ms) | Median(ms) |   Mean(ms) |  GFLOP/s |  Speedup | Eff(%)
+------------------------------------------------------------------------------------------
+sequential       |   3040.333 |   3369.460 |   3398.029 |     0.86 |     1.00x |  100.0
+simd             |   3715.653 |   3933.124 |   3998.025 |     0.70 |     0.82x |   81.8
+wavefront        |   2263.038 |   2452.802 |   2445.611 |     1.15 |     1.34x |   67.2
+tiled            |   2263.662 |   2454.190 |   2474.217 |     1.15 |     1.34x |   67.2
+------------------------------------------------------------------------------------------
+
+Results exported to: results/nussinov_LARGE_20251225_213342.csv
+======================================================================
+NUSSINOV RNA FOLDING BENCHMARK
+======================================================================
+Julia version: 1.11.4
+Threads: 4
+BLAS threads: 1
+CPU threads: 32
+Dataset: LARGE (n=2500)
+Memory: 23.84 MB
+NOTE: Limited parallelism due to anti-diagonal dependencies
+
+Reference optimal score: 1250
+
+------------------------------------------------------------------------------------------
+Strategy         |    Min(ms) | Median(ms) |   Mean(ms) |  GFLOP/s |  Speedup | Eff(%)
+------------------------------------------------------------------------------------------
+sequential       |   3087.812 |   3213.158 |   3228.317 |     0.84 |     1.00x |  100.0
+simd             |   3445.249 |   3786.504 |   3714.102 |     0.76 |     0.90x |   89.6
+wavefront        |    910.312 |    937.007 |    940.196 |     2.86 |     3.39x |   84.8
+tiled            |    976.760 |   1013.789 |   1010.877 |     2.67 |     3.16x |   79.0
+------------------------------------------------------------------------------------------
+
+Results exported to: results/nussinov_LARGE_20251225_213548.csv
+======================================================================
+NUSSINOV RNA FOLDING BENCHMARK
+======================================================================
+Julia version: 1.11.4
+Threads: 8
+BLAS threads: 1
+CPU threads: 32
+Dataset: LARGE (n=2500)
+Memory: 23.84 MB
+NOTE: Limited parallelism due to anti-diagonal dependencies
+
+Reference optimal score: 1250
+
+------------------------------------------------------------------------------------------
+Strategy         |    Min(ms) | Median(ms) |   Mean(ms) |  GFLOP/s |  Speedup | Eff(%)
+------------------------------------------------------------------------------------------
+sequential       |   3339.080 |   3440.967 |   3436.992 |     0.78 |     1.00x |  100.0
+simd             |   3560.854 |   3998.991 |   3990.185 |     0.73 |     0.94x |   93.8
+wavefront        |    538.635 |    556.912 |    554.752 |     4.83 |     6.20x |   77.5
+tiled            |    597.743 |    618.595 |    616.374 |     4.36 |     5.59x |   69.8
+------------------------------------------------------------------------------------------
+
+Results exported to: results/nussinov_LARGE_20251225_213749.csv
+======================================================================
+NUSSINOV RNA FOLDING BENCHMARK
+======================================================================
+Julia version: 1.11.4
+Threads: 16
+BLAS threads: 1
+CPU threads: 32
+Dataset: LARGE (n=2500)
+Memory: 23.84 MB
+NOTE: Limited parallelism due to anti-diagonal dependencies
+
+Reference optimal score: 1250
+
+------------------------------------------------------------------------------------------
+Strategy         |    Min(ms) | Median(ms) |   Mean(ms) |  GFLOP/s |  Speedup | Eff(%)
+------------------------------------------------------------------------------------------
+sequential       |   3102.474 |   3187.222 |   3181.838 |     0.84 |     1.00x |  100.0
+simd             |   3708.997 |   3815.479 |   3885.783 |     0.70 |     0.84x |   83.6
+wavefront        |    325.018 |    336.384 |    338.967 |     8.01 |     9.55x |   59.7
+tiled            |    402.486 |    416.411 |    440.301 |     6.47 |     7.71x |   48.2
+------------------------------------------------------------------------------------------
+
+Results exported to: results/nussinov_LARGE_20251225_213941.csv

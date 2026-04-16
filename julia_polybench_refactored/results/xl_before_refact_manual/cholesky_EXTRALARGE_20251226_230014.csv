@@ -1,0 +1,6 @@
+benchmark,dataset,strategy,threads,min_ms,median_ms,mean_ms,std_ms,gflops,speedup,efficiency,verified
+cholesky,EXTRALARGE,sequential,8,44008.435,44115.147,44110.799,63.642,0.48,1.00,100.0,PASS
+cholesky,EXTRALARGE,simd,8,43745.415,43902.290,43896.741,84.823,0.49,1.01,100.6,PASS
+cholesky,EXTRALARGE,threads,8,4895.657,4943.579,4932.519,20.075,4.36,8.99,112.4,PASS
+cholesky,EXTRALARGE,blas,8,541.703,541.868,541.894,0.119,39.38,81.24,8124.1,PASS
+cholesky,EXTRALARGE,tiled,8,56998.564,57231.102,57188.137,82.851,0.37,0.77,77.2,PASS

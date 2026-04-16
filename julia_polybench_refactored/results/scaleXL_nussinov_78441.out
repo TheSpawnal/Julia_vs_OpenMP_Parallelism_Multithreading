@@ -1,0 +1,49 @@
+=== Running with 8 threads ===
+======================================================================
+NUSSINOV RNA FOLDING BENCHMARK
+======================================================================
+Julia version: 1.11.4
+Threads: 8
+BLAS threads: 1
+CPU threads: 32
+Dataset: EXTRALARGE (n=5500)
+Memory: 115.39 MB
+NOTE: Limited parallelism due to anti-diagonal dependencies
+
+Reference optimal score: 2750
+
+------------------------------------------------------------------------------------------
+Strategy         |    Min(ms) | Median(ms) |   Mean(ms) |  GFLOP/s |  Speedup | Eff(%)
+------------------------------------------------------------------------------------------
+sequential       |  88642.821 |  89218.756 |  89086.673 |     0.31 |     1.00x |   N/A
+simd             | 100774.496 | 101344.211 | 101245.621 |     0.28 |     0.88x |   N/A
+wavefront        |  28078.251 |  30978.930 |  30580.172 |     0.99 |     3.16x |   39.5
+tiled            |  21113.911 |  28306.188 |  27670.923 |     1.31 |     4.20x |   52.5
+------------------------------------------------------------------------------------------
+
+Results exported to: results/nussinov_EXTRALARGE_20251227_015611.csv
+=== Running with 16 threads ===
+======================================================================
+NUSSINOV RNA FOLDING BENCHMARK
+======================================================================
+Julia version: 1.11.4
+Threads: 16
+BLAS threads: 1
+CPU threads: 32
+Dataset: EXTRALARGE (n=5500)
+Memory: 115.39 MB
+NOTE: Limited parallelism due to anti-diagonal dependencies
+
+Reference optimal score: 2750
+
+------------------------------------------------------------------------------------------
+Strategy         |    Min(ms) | Median(ms) |   Mean(ms) |  GFLOP/s |  Speedup | Eff(%)
+------------------------------------------------------------------------------------------
+sequential       |  88585.532 |  89087.133 |  88999.990 |     0.31 |     1.00x |   N/A
+simd             | 100670.451 | 101101.516 | 101000.186 |     0.28 |     0.88x |   N/A
+wavefront        |  19011.066 |  21494.501 |  21591.033 |     1.46 |     4.66x |   29.1
+tiled            |  20573.267 |  23283.998 |  23364.941 |     1.35 |     4.31x |   26.9
+------------------------------------------------------------------------------------------
+
+Results exported to: results/nussinov_EXTRALARGE_20251227_024845.csv
+=== Scaling study complete for nussinov ===

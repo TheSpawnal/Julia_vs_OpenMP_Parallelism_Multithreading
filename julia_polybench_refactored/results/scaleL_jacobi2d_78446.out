@@ -1,0 +1,126 @@
+=== Running with 1 threads ===
+======================================================================
+JACOBI-2D STENCIL BENCHMARK
+======================================================================
+Julia version: 1.11.4
+Threads: 1
+BLAS threads: 32
+CPU threads: 32
+Dataset: LARGE (n=1300, tsteps=500)
+Memory: 25.79 MB
+NOTE: Memory-bound (arithmetic intensity ~0.83 FLOPs/byte)
+
+
+------------------------------------------------------------------------------------------
+Strategy         |    Min(ms) | Median(ms) |   Mean(ms) |  GFLOP/s |  Speedup | Eff(%)
+------------------------------------------------------------------------------------------
+sequential       |   2383.602 |   2411.277 |   2409.554 |     1.77 |     1.00x |   N/A
+threads          |   2451.441 |   2469.483 |   2468.863 |     1.72 |     0.97x |   97.2
+tiled            |   7550.364 |   7577.940 |   7581.837 |     0.56 |     0.32x |   31.6
+redblack         |   4831.608 |   4860.498 |   4857.996 |     0.87 |     0.49x |   49.3
+------------------------------------------------------------------------------------------
+
+Memory Bandwidth:
+  Estimated: 16.49 GB/s
+Results exported to: results/jacobi2d_LARGE_20251227_010553.csv
+=== Running with 2 threads ===
+======================================================================
+JACOBI-2D STENCIL BENCHMARK
+======================================================================
+Julia version: 1.11.4
+Threads: 2
+BLAS threads: 1
+CPU threads: 32
+Dataset: LARGE (n=1300, tsteps=500)
+Memory: 25.79 MB
+NOTE: Memory-bound (arithmetic intensity ~0.83 FLOPs/byte)
+
+
+------------------------------------------------------------------------------------------
+Strategy         |    Min(ms) | Median(ms) |   Mean(ms) |  GFLOP/s |  Speedup | Eff(%)
+------------------------------------------------------------------------------------------
+sequential       |   2419.055 |   2447.707 |   2447.914 |     1.74 |     1.00x |   N/A
+threads          |   1259.846 |   1274.228 |   1273.510 |     3.34 |     1.92x |   96.0
+tiled            |   3915.939 |   3945.139 |   3949.103 |     1.08 |     0.62x |   30.9
+redblack         |   2593.937 |   2676.939 |   2697.870 |     1.62 |     0.93x |   46.6
+------------------------------------------------------------------------------------------
+
+Memory Bandwidth:
+  Estimated: 32.10 GB/s
+Results exported to: results/jacobi2d_LARGE_20251227_010850.csv
+=== Running with 4 threads ===
+======================================================================
+JACOBI-2D STENCIL BENCHMARK
+======================================================================
+Julia version: 1.11.4
+Threads: 4
+BLAS threads: 1
+CPU threads: 32
+Dataset: LARGE (n=1300, tsteps=500)
+Memory: 25.79 MB
+NOTE: Memory-bound (arithmetic intensity ~0.83 FLOPs/byte)
+
+
+------------------------------------------------------------------------------------------
+Strategy         |    Min(ms) | Median(ms) |   Mean(ms) |  GFLOP/s |  Speedup | Eff(%)
+------------------------------------------------------------------------------------------
+sequential       |   2411.179 |   2445.607 |   2443.403 |     1.75 |     1.00x |   N/A
+threads          |    353.726 |    356.015 |    358.155 |    11.91 |     6.82x |  170.4
+tiled            |    753.685 |    765.601 |    763.123 |     5.59 |     3.20x |   80.0
+redblack         |    839.288 |    888.727 |    884.704 |     5.02 |     2.87x |   71.8
+------------------------------------------------------------------------------------------
+
+Memory Bandwidth:
+  Estimated: 114.31 GB/s
+Results exported to: results/jacobi2d_LARGE_20251227_011012.csv
+=== Running with 8 threads ===
+======================================================================
+JACOBI-2D STENCIL BENCHMARK
+======================================================================
+Julia version: 1.11.4
+Threads: 8
+BLAS threads: 1
+CPU threads: 32
+Dataset: LARGE (n=1300, tsteps=500)
+Memory: 25.79 MB
+NOTE: Memory-bound (arithmetic intensity ~0.83 FLOPs/byte)
+
+
+------------------------------------------------------------------------------------------
+Strategy         |    Min(ms) | Median(ms) |   Mean(ms) |  GFLOP/s |  Speedup | Eff(%)
+------------------------------------------------------------------------------------------
+sequential       |   2417.678 |   2432.507 |   2436.488 |     1.74 |     1.00x |   N/A
+threads          |    217.080 |    220.077 |    222.050 |    19.40 |    11.14x |  139.2
+tiled            |    469.770 |    480.647 |    499.441 |     8.97 |     5.15x |   64.3
+redblack         |    510.030 |    531.717 |    532.389 |     8.26 |     4.74x |   59.3
+------------------------------------------------------------------------------------------
+
+Memory Bandwidth:
+  Estimated: 186.27 GB/s
+Results exported to: results/jacobi2d_LARGE_20251227_011121.csv
+=== Running with 16 threads ===
+======================================================================
+JACOBI-2D STENCIL BENCHMARK
+======================================================================
+Julia version: 1.11.4
+Threads: 16
+BLAS threads: 1
+CPU threads: 32
+Dataset: LARGE (n=1300, tsteps=500)
+Memory: 25.79 MB
+NOTE: Memory-bound (arithmetic intensity ~0.83 FLOPs/byte)
+
+
+------------------------------------------------------------------------------------------
+Strategy         |    Min(ms) | Median(ms) |   Mean(ms) |  GFLOP/s |  Speedup | Eff(%)
+------------------------------------------------------------------------------------------
+sequential       |   2390.072 |   2415.541 |   2415.683 |     1.76 |     1.00x |   N/A
+threads          |    133.230 |    135.504 |    146.906 |    31.61 |    17.94x |  112.1
+tiled            |    273.380 |    302.444 |    323.311 |    15.41 |     8.74x |   54.6
+redblack         |    293.581 |    312.211 |    311.075 |    14.35 |     8.14x |   50.9
+------------------------------------------------------------------------------------------
+
+Memory Bandwidth:
+  Estimated: 303.50 GB/s
+Results exported to: results/jacobi2d_LARGE_20251227_011223.csv
+=== Scaling study complete for jacobi2d ===

@@ -1,0 +1,50 @@
+======================================================================
+DAS-5 EXTRALARGE Dataset Benchmark
+======================================================================
+Job ID:     78454
+Node:       node032
+Start:      Sat Dec 27 01:30:21 CET 2025
+Cores:      16
+Threads:    16
+Julia:      julia version 1.11.4
+Benchmark:  correlation
+Dataset:    EXTRALARGE
+======================================================================
+
+>>> Running: correlation (EXTRALARGE)
+----------------------------------------------------------------------
+======================================================================
+CORRELATION MATRIX BENCHMARK
+======================================================================
+Julia version: 1.11.4
+Threads: 16
+BLAS threads: 1
+CPU threads: 32
+Dataset: EXTRALARGE (m=2600, n=3000)
+Memory: 128.17 MB
+
+
+------------------------------------------------------------------------------------------
+Strategy         |    Min(ms) | Median(ms) |   Mean(ms) |  GFLOP/s |  Speedup | Eff(%)
+------------------------------------------------------------------------------------------
+sequential       |  13229.878 |  13257.196 |  13249.601 |     1.77 |     1.00x |   N/A
+threads          |   2003.832 |   2213.997 |   2222.594 |    11.70 |     6.60x |   41.3
+colmajor         |   1646.833 |   2417.533 |   2362.467 |    14.23 |     8.03x |   50.2
+tiled            |    436.850 |    437.469 |    437.501 |    53.65 |    30.28x |  189.3
+------------------------------------------------------------------------------------------
+Results exported to: results/correlation_EXTRALARGE_20251227_013404.csv
+
+======================================================================
+EXTRALARGE benchmark complete
+End:        Sat Dec 27 01:34:05 CET 2025
+Results:    /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/results
+======================================================================
+
+Generated CSV files:
+-rw-rw-r-- 1 ade910 ade910 629 Dec 27 01:17 /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/results/2mm_EXTRALARGE_20251227_011708.csv
+-rw-rw-r-- 1 ade910 ade910 639 Dec 27 01:31 /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/results/2mm_EXTRALARGE_20251227_013059.csv
+-rw-rw-r-- 1 ade910 ade910 635 Dec 27 01:24 /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/results/3mm_EXTRALARGE_20251227_012444.csv
+-rw-rw-r-- 1 ade910 ade910 452 Dec 27 01:06 /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/results/correlation_EXTRALARGE_20251227_010627.csv
+-rw-rw-r-- 1 ade910 ade910 456 Dec 27 01:11 /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/results/correlation_EXTRALARGE_20251227_011158.csv
+-rw-rw-r-- 1 ade910 ade910 458 Dec 27 01:34 /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/results/correlation_EXTRALARGE_20251227_013404.csv
+-rw-rw-r-- 1 ade910 ade910 465 Dec 27 01:21 /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/results/jacobi2d_EXTRALARGE_20251227_012135.csv

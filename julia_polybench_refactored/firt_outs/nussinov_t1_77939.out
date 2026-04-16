@@ -1,0 +1,29 @@
+======================================================================
+NUSSINOV RNA FOLDING BENCHMARK
+======================================================================
+Julia version: 1.11.4
+Threads: 1
+BLAS threads: 32
+CPU threads: 32
+Dataset: LARGE (n=2500)
+Memory: 23.84 MB
+NOTE: Limited parallelism due to anti-diagonal dependencies
+
+Reference optimal score: 1250
+
+------------------------------------------------------------------------------------------
+Strategy         |    Min(ms) | Median(ms) |   Mean(ms) |  GFLOP/s |  Speedup | Eff(%)
+------------------------------------------------------------------------------------------
+sequential       |   3181.483 |   3468.507 |   3440.736 |     0.82 |     1.00x |  100.0
+simd             |   3509.591 |   3799.875 |   3788.961 |     0.74 |     0.91x |   90.7
+wavefront        |   4149.141 |   4558.645 |   4546.134 |     0.63 |     0.77x |   76.7
+tiled            |   3848.484 |   4190.415 |   4217.461 |     0.68 |     0.83x |   82.7
+------------------------------------------------------------------------------------------
+
+NOTE: Threaded strategies slower due to:
+  - Anti-diagonal parallelism limited to n-d cells
+  - Synchronization barrier after each diagonal
+  - Threading overhead exceeds computation for small diagonals
+  - Consider LARGE dataset for better scaling
+
+Results exported to: results/nussinov_LARGE_20251225_222539.csv

@@ -1,0 +1,44 @@
+======================================================================
+DAS-5 EXTRALARGE Dataset Benchmark
+======================================================================
+Job ID:     78410
+Node:       node054
+Start:      Sat Dec 27 00:12:12 CET 2025
+Cores:      16
+Threads:    16
+Julia:      julia version 1.11.4
+Benchmark:  correlation
+Dataset:    EXTRALARGE
+======================================================================
+
+>>> Running: correlation (EXTRALARGE)
+----------------------------------------------------------------------
+======================================================================
+CORRELATION MATRIX BENCHMARK
+======================================================================
+Julia version: 1.11.4
+Threads: 16
+BLAS threads: 1
+CPU threads: 32
+Dataset: EXTRALARGE (m=2600, n=3000)
+Memory: 128.17 MB
+
+
+------------------------------------------------------------------------------------------
+Strategy         |    Min(ms) | Median(ms) |   Mean(ms) |  GFLOP/s |  Speedup | Eff(%)
+------------------------------------------------------------------------------------------
+sequential       |  13150.972 |  13178.614 |  13172.822 |     1.78 |     1.00x |  100.0
+threads          |   2091.620 |   2613.466 |   2529.447 |    11.21 |     6.29x |   39.3
+colmajor         |   1768.650 |   2587.632 |   2375.402 |    13.25 |     7.44x |   46.5
+tiled            |    453.399 |    453.779 |    454.171 |    51.70 |    29.01x |  181.3
+------------------------------------------------------------------------------------------
+Results exported to: results/correlation_EXTRALARGE_20251227_001600.csv
+
+======================================================================
+EXTRALARGE benchmark complete
+End:        Sat Dec 27 00:16:01 CET 2025
+Results:    /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/results
+======================================================================
+
+Generated CSV files:
+-rw-rw-r-- 1 ade910 ade910 463 Dec 27 00:16 /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/results/correlation_EXTRALARGE_20251227_001600.csv

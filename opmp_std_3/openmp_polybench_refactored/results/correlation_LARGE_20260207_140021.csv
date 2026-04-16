@@ -1,0 +1,6 @@
+benchmark,dataset,strategy,threads,is_parallel,min_ms,median_ms,mean_ms,std_ms,gflops,speedup,efficiency_pct,verified,max_error,allocations
+correlation,LARGE,sequential,2,false,1345.9370,1374.7143,1374.7832,25.9792,1.75,1.00,,PASS,0.00e+00,0
+correlation,LARGE,threads_static,2,true,1050.1575,1059.5014,1059.7013,10.6729,2.25,1.28,64.08,PASS,0.00e+00,0
+correlation,LARGE,threads_dynamic,2,true,686.1240,691.2015,691.4394,4.7115,3.44,1.96,98.08,PASS,0.00e+00,0
+correlation,LARGE,tiled,2,true,582.9298,619.3260,615.0873,24.2773,4.05,2.31,115.45,PASS,7.77e-16,0
+correlation,LARGE,tasks,2,true,664.3351,675.9248,703.5183,45.7994,3.55,2.03,101.30,PASS,7.77e-16,0

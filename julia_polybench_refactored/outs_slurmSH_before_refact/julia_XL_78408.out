@@ -1,0 +1,48 @@
+======================================================================
+DAS-5 EXTRALARGE Dataset Benchmark
+======================================================================
+Job ID:     78408
+Node:       node028
+Start:      Sat Dec 27 00:12:01 CET 2025
+Cores:      16
+Threads:    16
+Julia:      julia version 1.11.4
+Benchmark:  3mm
+Dataset:    EXTRALARGE
+======================================================================
+
+>>> Running: 3mm (EXTRALARGE)
+----------------------------------------------------------------------
+======================================================================
+3MM BENCHMARK
+======================================================================
+Julia version: 1.11.4
+Threads: 16
+BLAS threads: 1
+CPU threads: 32
+Dataset: EXTRALARGE (ni=1600, nj=1800, nk=2000, nl=2200, nm=2400)
+Memory: 204.16 MB
+FLOPs: 43200000000 (43.20 GFLOPs)
+
+------------------------------------------------------------------------------------------
+Strategy         |    Min(ms) | Median(ms) |   Mean(ms) |  GFLOP/s |  Speedup | Eff(%)
+------------------------------------------------------------------------------------------
+sequential       |  57959.386 |  58065.095 |  58037.224 |     0.75 |     1.00x |  100.0
+threads_static   |   3964.680 |   3989.363 |   3991.372 |    10.90 |    14.62x |   91.4
+threads_dynamic  |   3939.917 |   3961.516 |   3963.580 |    10.96 |    14.71x |   91.9
+tiled            |   2715.747 |   2721.959 |   2721.547 |    15.91 |    21.34x |  133.4
+blas             |   1009.639 |   1010.794 |   1010.613 |    42.79 |    57.41x | 5740.6
+tasks            |   4046.269 |   4161.835 |   4184.055 |    10.68 |    14.32x |   89.5
+------------------------------------------------------------------------------------------
+Results exported to: results/3mm_EXTRALARGE_20251227_002413.csv
+
+======================================================================
+EXTRALARGE benchmark complete
+End:        Sat Dec 27 00:24:14 CET 2025
+Results:    /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/results
+======================================================================
+
+Generated CSV files:
+-rw-rw-r-- 1 ade910 ade910 603 Dec 27 00:20 /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/results/2mm_EXTRALARGE_20251227_002002.csv
+-rw-rw-r-- 1 ade910 ade910 609 Dec 27 00:24 /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/results/3mm_EXTRALARGE_20251227_002413.csv
+-rw-rw-r-- 1 ade910 ade910 463 Dec 27 00:16 /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/results/correlation_EXTRALARGE_20251227_001600.csv

@@ -1,0 +1,57 @@
+======================================================================
+DAS-5 EXTRALARGE Dataset Benchmark
+======================================================================
+Job ID:     78452
+Node:       node030
+Start:      Sat Dec 27 01:29:55 CET 2025
+Cores:      16
+Threads:    16
+Julia:      julia version 1.11.4
+Benchmark:  jacobi2d
+Dataset:    EXTRALARGE
+======================================================================
+
+>>> Running: jacobi2d (EXTRALARGE)
+----------------------------------------------------------------------
+======================================================================
+JACOBI-2D STENCIL BENCHMARK
+======================================================================
+Julia version: 1.11.4
+Threads: 16
+BLAS threads: 1
+CPU threads: 32
+Dataset: EXTRALARGE (n=2800, tsteps=1000)
+Memory: 119.63 MB
+NOTE: Memory-bound (arithmetic intensity ~0.83 FLOPs/byte)
+
+
+------------------------------------------------------------------------------------------
+Strategy         |    Min(ms) | Median(ms) |   Mean(ms) |  GFLOP/s |  Speedup | Eff(%)
+------------------------------------------------------------------------------------------
+sequential       |  24547.798 |  24612.382 |  24625.582 |     1.59 |     1.00x |   N/A
+threads          |   7745.258 |  15376.101 |  14378.246 |     5.05 |     3.17x |   19.8
+tiled            |  18785.619 |  19439.993 |  19666.547 |     2.08 |     1.31x |    8.2
+redblack         |  22612.073 |  29326.886 |  28220.986 |     1.73 |     1.09x |    6.8
+------------------------------------------------------------------------------------------
+
+Memory Bandwidth:
+  Estimated: 48.52 GB/s
+Results exported to: results/jacobi2d_EXTRALARGE_20251227_014604.csv
+
+======================================================================
+EXTRALARGE benchmark complete
+End:        Sat Dec 27 01:46:05 CET 2025
+Results:    /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/results
+======================================================================
+
+Generated CSV files:
+-rw-rw-r-- 1 ade910 ade910 635 Dec 27 01:24 /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/results/3mm_EXTRALARGE_20251227_012444.csv
+-rw-rw-r-- 1 ade910 ade910 643 Dec 27 01:41 /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/results/3mm_EXTRALARGE_20251227_014147.csv
+-rw-rw-r-- 1 ade910 ade910 644 Dec 27 01:45 /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/results/3mm_EXTRALARGE_20251227_014535.csv
+-rw-rw-r-- 1 ade910 ade910 525 Dec 27 01:41 /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/results/cholesky_EXTRALARGE_20251227_014144.csv
+-rw-rw-r-- 1 ade910 ade910 452 Dec 27 01:06 /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/results/correlation_EXTRALARGE_20251227_010627.csv
+-rw-rw-r-- 1 ade910 ade910 456 Dec 27 01:11 /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/results/correlation_EXTRALARGE_20251227_011158.csv
+-rw-rw-r-- 1 ade910 ade910 458 Dec 27 01:34 /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/results/correlation_EXTRALARGE_20251227_013404.csv
+-rw-rw-r-- 1 ade910 ade910 465 Dec 27 01:21 /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/results/jacobi2d_EXTRALARGE_20251227_012135.csv
+-rw-rw-r-- 1 ade910 ade910 471 Dec 27 01:43 /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/results/jacobi2d_EXTRALARGE_20251227_014319.csv
+-rw-rw-r-- 1 ade910 ade910 466 Dec 27 01:46 /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/results/jacobi2d_EXTRALARGE_20251227_014604.csv

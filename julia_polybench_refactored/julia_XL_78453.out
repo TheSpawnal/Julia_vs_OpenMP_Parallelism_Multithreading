@@ -1,0 +1,56 @@
+======================================================================
+DAS-5 EXTRALARGE Dataset Benchmark
+======================================================================
+Job ID:     78453
+Node:       node031
+Start:      Sat Dec 27 01:30:12 CET 2025
+Cores:      16
+Threads:    16
+Julia:      julia version 1.11.4
+Benchmark:  nussinov
+Dataset:    EXTRALARGE
+======================================================================
+
+>>> Running: nussinov (EXTRALARGE)
+----------------------------------------------------------------------
+======================================================================
+NUSSINOV RNA FOLDING BENCHMARK
+======================================================================
+Julia version: 1.11.4
+Threads: 16
+BLAS threads: 1
+CPU threads: 32
+Dataset: EXTRALARGE (n=5500)
+Memory: 115.39 MB
+NOTE: Limited parallelism due to anti-diagonal dependencies
+
+Reference optimal score: 2750
+
+------------------------------------------------------------------------------------------
+Strategy         |    Min(ms) | Median(ms) |   Mean(ms) |  GFLOP/s |  Speedup | Eff(%)
+------------------------------------------------------------------------------------------
+sequential       |  88674.400 |  89127.798 |  89056.807 |     0.31 |     1.00x |   N/A
+simd             | 100783.529 | 101239.280 | 101084.782 |     0.28 |     0.88x |   N/A
+wavefront        |  18334.144 |  20674.525 |  20693.854 |     1.51 |     4.84x |   30.2
+tiled            |  20906.756 |  24406.305 |  24209.199 |     1.33 |     4.24x |   26.5
+------------------------------------------------------------------------------------------
+
+Results exported to: results/nussinov_EXTRALARGE_20251227_020308.csv
+
+======================================================================
+EXTRALARGE benchmark complete
+End:        Sat Dec 27 02:03:09 CET 2025
+Results:    /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/results
+======================================================================
+
+Generated CSV files:
+-rw-rw-r-- 1 ade910 ade910 525 Dec 27 01:41 /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/results/cholesky_EXTRALARGE_20251227_014144.csv
+-rw-rw-r-- 1 ade910 ade910 530 Dec 27 01:52 /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/results/cholesky_EXTRALARGE_20251227_015246.csv
+-rw-rw-r-- 1 ade910 ade910 452 Dec 27 01:06 /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/results/correlation_EXTRALARGE_20251227_010627.csv
+-rw-rw-r-- 1 ade910 ade910 456 Dec 27 01:11 /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/results/correlation_EXTRALARGE_20251227_011158.csv
+-rw-rw-r-- 1 ade910 ade910 458 Dec 27 01:34 /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/results/correlation_EXTRALARGE_20251227_013404.csv
+-rw-rw-r-- 1 ade910 ade910 465 Dec 27 01:21 /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/results/jacobi2d_EXTRALARGE_20251227_012135.csv
+-rw-rw-r-- 1 ade910 ade910 471 Dec 27 01:43 /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/results/jacobi2d_EXTRALARGE_20251227_014319.csv
+-rw-rw-r-- 1 ade910 ade910 466 Dec 27 01:46 /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/results/jacobi2d_EXTRALARGE_20251227_014604.csv
+-rw-rw-r-- 1 ade910 ade910 463 Dec 27 01:56 /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/results/nussinov_EXTRALARGE_20251227_015611.csv
+-rw-rw-r-- 1 ade910 ade910 467 Dec 27 02:03 /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/results/nussinov_EXTRALARGE_20251227_020308.csv

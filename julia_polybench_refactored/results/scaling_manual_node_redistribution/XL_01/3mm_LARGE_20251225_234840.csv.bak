@@ -1,0 +1,7 @@
+benchmark,dataset,strategy,threads,min_ms,median_ms,mean_ms,std_ms,gflops,speedup,efficiency,verified
+3mm,LARGE,sequential,4,4245.104,4255.432,4252.976,4.596,1.27,1.00,100.0,PASS
+3mm,LARGE,threads_static,4,1056.515,1093.559,1082.132,21.357,5.11,4.02,100.5,PASS
+3mm,LARGE,threads_dynamic,4,1057.146,1058.178,1058.024,0.471,5.11,4.02,100.4,PASS
+3mm,LARGE,tiled,4,958.325,958.809,958.800,0.272,5.63,4.43,110.7,PASS
+3mm,LARGE,blas,4,128.296,128.325,128.337,0.046,42.09,33.09,3308.8,PASS
+3mm,LARGE,tasks,4,1115.616,1145.794,1160.218,31.679,4.84,3.81,95.1,PASS

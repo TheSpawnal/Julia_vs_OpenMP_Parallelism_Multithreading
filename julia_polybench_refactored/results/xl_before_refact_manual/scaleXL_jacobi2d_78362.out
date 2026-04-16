@@ -1,0 +1,51 @@
+=== Running with 8 threads ===
+======================================================================
+JACOBI-2D STENCIL BENCHMARK
+======================================================================
+Julia version: 1.11.4
+Threads: 8
+BLAS threads: 1
+CPU threads: 32
+Dataset: EXTRALARGE (n=2800, tsteps=1000)
+Memory: 119.63 MB
+NOTE: Memory-bound (arithmetic intensity ~0.83 FLOPs/byte)
+
+
+------------------------------------------------------------------------------------------
+Strategy         |    Min(ms) | Median(ms) |   Mean(ms) |  GFLOP/s |  Speedup | Eff(%)
+------------------------------------------------------------------------------------------
+sequential       |  24456.031 |  24509.890 |  24517.346 |     1.60 |     1.00x |  100.0
+threads          |   9766.306 |  13857.185 |  13926.750 |     4.01 |     2.50x |   31.3
+tiled            |  11583.757 |  16356.155 |  16937.849 |     3.38 |     2.11x |   26.4
+redblack         |  14248.912 |  19002.191 |  20638.547 |     2.75 |     1.72x |   21.5
+------------------------------------------------------------------------------------------
+
+Memory Bandwidth:
+  Estimated: 38.48 GB/s
+Results exported to: results/jacobi2d_EXTRALARGE_20251226_223937.csv
+=== Running with 16 threads ===
+======================================================================
+JACOBI-2D STENCIL BENCHMARK
+======================================================================
+Julia version: 1.11.4
+Threads: 16
+BLAS threads: 1
+CPU threads: 32
+Dataset: EXTRALARGE (n=2800, tsteps=1000)
+Memory: 119.63 MB
+NOTE: Memory-bound (arithmetic intensity ~0.83 FLOPs/byte)
+
+
+------------------------------------------------------------------------------------------
+Strategy         |    Min(ms) | Median(ms) |   Mean(ms) |  GFLOP/s |  Speedup | Eff(%)
+------------------------------------------------------------------------------------------
+sequential       |  24246.003 |  24649.634 |  24615.247 |     1.61 |     1.00x |  100.0
+threads          |   8338.243 |  13699.128 |  13271.590 |     4.69 |     2.91x |   18.2
+tiled            |  12451.019 |  19097.280 |  17885.849 |     3.14 |     1.95x |   12.2
+redblack         |  18090.829 |  27591.440 |  27346.461 |     2.16 |     1.34x |    8.4
+------------------------------------------------------------------------------------------
+
+Memory Bandwidth:
+  Estimated: 45.07 GB/s
+Results exported to: results/jacobi2d_EXTRALARGE_20251226_230143.csv
+=== Scaling study complete for jacobi2d ===

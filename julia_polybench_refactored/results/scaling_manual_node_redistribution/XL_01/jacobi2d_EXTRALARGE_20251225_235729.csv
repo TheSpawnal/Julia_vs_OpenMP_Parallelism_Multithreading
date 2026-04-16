@@ -1,0 +1,5 @@
+benchmark,dataset,strategy,threads,min_ms,median_ms,mean_ms,std_ms,gflops,speedup,efficiency,verified
+jacobi2d,EXTRALARGE,sequential,16,24154.813,24381.806,24376.300,149.170,1.62,1.00,100.0,PASS
+jacobi2d,EXTRALARGE,threads,16,12193.657,13828.462,14177.819,2130.835,3.21,1.98,12.4,PASS
+jacobi2d,EXTRALARGE,tiled,16,14912.244,16271.424,16700.006,1588.922,2.62,1.62,10.1,PASS
+jacobi2d,EXTRALARGE,redblack,16,14833.045,22085.371,22569.329,8982.569,2.64,1.63,10.2,PASS

@@ -1,0 +1,55 @@
+ERROR: LoadError: use occursin(needle, haystack) for string containment
+Stacktrace:
+ [1] error(s::String)
+   @ Base ./error.jl:35
+ [2] in(::String, ::String)
+   @ Base ./strings/search.jl:726
+ [3] main()
+   @ Main ~/Julia_versus_OpenMP/julia_polybench_refactored/scripts/run_2mm.jl:367
+ [4] top-level scope
+   @ ~/Julia_versus_OpenMP/julia_polybench_refactored/scripts/run_2mm.jl:568
+in expression starting at /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/scripts/run_2mm.jl:568
+ERROR: LoadError: use occursin(needle, haystack) for string containment
+Stacktrace:
+ [1] error(s::String)
+   @ Base ./error.jl:35
+ [2] in(::String, ::String)
+   @ Base ./strings/search.jl:726
+ [3] main()
+   @ Main ~/Julia_versus_OpenMP/julia_polybench_refactored/scripts/run_2mm.jl:367
+ [4] top-level scope
+   @ ~/Julia_versus_OpenMP/julia_polybench_refactored/scripts/run_2mm.jl:568
+in expression starting at /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/scripts/run_2mm.jl:568
+ERROR: LoadError: use occursin(needle, haystack) for string containment
+Stacktrace:
+ [1] error(s::String)
+   @ Base ./error.jl:35
+ [2] in(::String, ::String)
+   @ Base ./strings/search.jl:726
+ [3] main()
+   @ Main ~/Julia_versus_OpenMP/julia_polybench_refactored/scripts/run_2mm.jl:367
+ [4] top-level scope
+   @ ~/Julia_versus_OpenMP/julia_polybench_refactored/scripts/run_2mm.jl:568
+in expression starting at /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/scripts/run_2mm.jl:568
+ERROR: LoadError: use occursin(needle, haystack) for string containment
+Stacktrace:
+ [1] error(s::String)
+   @ Base ./error.jl:35
+ [2] in(::String, ::String)
+   @ Base ./strings/search.jl:726
+ [3] main()
+   @ Main ~/Julia_versus_OpenMP/julia_polybench_refactored/scripts/run_2mm.jl:367
+ [4] top-level scope
+   @ ~/Julia_versus_OpenMP/julia_polybench_refactored/scripts/run_2mm.jl:568
+in expression starting at /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/scripts/run_2mm.jl:568
+ERROR: LoadError: use occursin(needle, haystack) for string containment
+Stacktrace:
+ [1] error(s::String)
+   @ Base ./error.jl:35
+ [2] in(::String, ::String)
+   @ Base ./strings/search.jl:726
+ [3] main()
+   @ Main ~/Julia_versus_OpenMP/julia_polybench_refactored/scripts/run_2mm.jl:367
+ [4] top-level scope
+   @ ~/Julia_versus_OpenMP/julia_polybench_refactored/scripts/run_2mm.jl:568
+in expression starting at /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/scripts/run_2mm.jl:568

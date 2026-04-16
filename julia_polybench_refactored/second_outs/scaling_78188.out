@@ -1,0 +1,159 @@
+======================================================================
+DAS-5 Thread Scaling Study
+======================================================================
+Job ID:      78188
+Node:        node028
+Benchmark:   correlation
+Dataset:     LARGE
+Threads:     1 2 4 8 16
+Output:      /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/results/scaling_study_correlation_LARGE_20251226_154554.csv
+======================================================================
+
+>>> Running with 1 thread(s)...
+----------------------------------------------------------------------
+======================================================================
+CORRELATION MATRIX BENCHMARK
+======================================================================
+Julia version: 1.11.4
+Threads: 1
+BLAS threads: 32
+CPU threads: 32
+Dataset: LARGE (m=1200, n=1400)
+Memory: 27.77 MB
+
+
+------------------------------------------------------------------------------------------
+Strategy         |    Min(ms) | Median(ms) |   Mean(ms) |  GFLOP/s |  Speedup | Eff(%)
+------------------------------------------------------------------------------------------
+sequential       |   1099.895 |   1100.007 |   1100.559 |     2.15 |     1.00x |  100.0
+threads          |    261.071 |    261.146 |    261.186 |     9.04 |     4.21x |  421.3
+colmajor         |    263.908 |    264.276 |    264.515 |     8.94 |     4.17x |  416.8
+tiled            |    266.409 |    266.653 |    266.667 |     8.86 |     4.13x |  412.9
+------------------------------------------------------------------------------------------
+Results exported to: results/correlation_LARGE_20251226_154632.csv
+Appended data from: /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/results/correlation_LARGE_20251226_154632.csv
+
+>>> Running with 2 thread(s)...
+----------------------------------------------------------------------
+======================================================================
+CORRELATION MATRIX BENCHMARK
+======================================================================
+Julia version: 1.11.4
+Threads: 2
+BLAS threads: 1
+CPU threads: 32
+Dataset: LARGE (m=1200, n=1400)
+Memory: 27.77 MB
+
+
+------------------------------------------------------------------------------------------
+Strategy         |    Min(ms) | Median(ms) |   Mean(ms) |  GFLOP/s |  Speedup | Eff(%)
+------------------------------------------------------------------------------------------
+sequential       |   1101.511 |   1101.866 |   1102.256 |     2.14 |     1.00x |  100.0
+threads          |    195.920 |    196.882 |    196.934 |    12.05 |     5.62x |  281.1
+colmajor         |    198.721 |    200.024 |    199.818 |    11.88 |     5.54x |  277.1
+tiled            |    200.217 |    201.560 |    201.564 |    11.79 |     5.50x |  275.1
+------------------------------------------------------------------------------------------
+Results exported to: results/correlation_LARGE_20251226_154709.csv
+Appended data from: /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/results/correlation_LARGE_20251226_154709.csv
+
+>>> Running with 4 thread(s)...
+----------------------------------------------------------------------
+======================================================================
+CORRELATION MATRIX BENCHMARK
+======================================================================
+Julia version: 1.11.4
+Threads: 4
+BLAS threads: 1
+CPU threads: 32
+Dataset: LARGE (m=1200, n=1400)
+Memory: 27.77 MB
+
+
+------------------------------------------------------------------------------------------
+Strategy         |    Min(ms) | Median(ms) |   Mean(ms) |  GFLOP/s |  Speedup | Eff(%)
+------------------------------------------------------------------------------------------
+sequential       |   1101.235 |   1101.355 |   1101.687 |     2.14 |     1.00x |  100.0
+threads          |    121.383 |    121.636 |    121.972 |    19.45 |     9.07x |  226.8
+colmajor         |    123.322 |    123.466 |    124.204 |    19.14 |     8.93x |  223.2
+tiled            |    109.110 |    109.379 |    109.425 |    21.63 |    10.09x |  252.3
+------------------------------------------------------------------------------------------
+Results exported to: results/correlation_LARGE_20251226_154741.csv
+Appended data from: /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/results/correlation_LARGE_20251226_154741.csv
+
+>>> Running with 8 thread(s)...
+----------------------------------------------------------------------
+======================================================================
+CORRELATION MATRIX BENCHMARK
+======================================================================
+Julia version: 1.11.4
+Threads: 8
+BLAS threads: 1
+CPU threads: 32
+Dataset: LARGE (m=1200, n=1400)
+Memory: 27.77 MB
+
+
+------------------------------------------------------------------------------------------
+Strategy         |    Min(ms) | Median(ms) |   Mean(ms) |  GFLOP/s |  Speedup | Eff(%)
+------------------------------------------------------------------------------------------
+sequential       |   1101.988 |   1102.323 |   1102.898 |     2.14 |     1.00x |  100.0
+threads          |     65.177 |     67.755 |     74.370 |    36.22 |    16.91x |  211.3
+colmajor         |     69.028 |     71.822 |     71.048 |    34.20 |    15.96x |  199.6
+tiled            |     60.637 |     60.787 |     60.781 |    38.93 |    18.17x |  227.2
+------------------------------------------------------------------------------------------
+Results exported to: results/correlation_LARGE_20251226_154810.csv
+Appended data from: /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/results/correlation_LARGE_20251226_154810.csv
+
+>>> Running with 16 thread(s)...
+----------------------------------------------------------------------
+======================================================================
+CORRELATION MATRIX BENCHMARK
+======================================================================
+Julia version: 1.11.4
+Threads: 16
+BLAS threads: 1
+CPU threads: 32
+Dataset: LARGE (m=1200, n=1400)
+Memory: 27.77 MB
+
+
+------------------------------------------------------------------------------------------
+Strategy         |    Min(ms) | Median(ms) |   Mean(ms) |  GFLOP/s |  Speedup | Eff(%)
+------------------------------------------------------------------------------------------
+sequential       |   1101.423 |   1101.985 |   1102.578 |     2.14 |     1.00x |  100.0
+threads          |     37.612 |     37.772 |     37.823 |    62.76 |    29.28x |  183.0
+colmajor         |     39.414 |     39.588 |     39.638 |    59.89 |    27.94x |  174.7
+tiled            |     31.363 |     31.414 |     31.435 |    75.26 |    35.12x |  219.5
+------------------------------------------------------------------------------------------
+Results exported to: results/correlation_LARGE_20251226_154838.csv
+Appended data from: /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/results/correlation_LARGE_20251226_154838.csv
+
+======================================================================
+Scaling Study Complete
+======================================================================
+Output: /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/results/scaling_study_correlation_LARGE_20251226_154554.csv
+
+Summary:
+----------------------------------------------------------------------
+benchmark    dataset  strategy    threads  is_parallel  min_ms    median_ms  mean_ms  std_ms  gflops  speedup  efficiency_pct  verified  max_error  allocations
+correlation  LARGE    sequential  1        1099.895     1100.007  1100.559   0.892    2.15    1.00    100.0    PASS                                 
+correlation  LARGE    threads     1        261.071      261.146   261.186    0.173    9.04    4.21    421.3    PASS                                 
+correlation  LARGE    colmajor    1        263.908      264.276   264.515    0.734    8.94    4.17    416.8    PASS                                 
+correlation  LARGE    tiled       1        266.409      266.653   266.667    0.137    8.86    4.13    412.9    PASS                                 
+correlation  LARGE    sequential  2        1101.511     1101.866  1102.256   0.973    2.14    1.00    100.0    PASS                                 
+correlation  LARGE    threads     2        195.920      196.882   196.934    0.710    12.05   5.62    281.1    PASS                                 
+correlation  LARGE    colmajor    2        198.721      200.024   199.818    0.502    11.88   5.54    277.1    PASS                                 
+correlation  LARGE    tiled       2        200.217      201.560   201.564    0.608    11.79   5.50    275.1    PASS                                 
+correlation  LARGE    sequential  4        1101.235     1101.355  1101.687   0.923    2.14    1.00    100.0    PASS                                 
+correlation  LARGE    threads     4        121.383      121.636   121.972    0.997    19.45   9.07    226.8    PASS                                 
+correlation  LARGE    colmajor    4        123.322      123.466   124.204    1.402    19.14   8.93    223.2    PASS                                 
+correlation  LARGE    tiled       4        109.110      109.379   109.425    0.243    21.63   10.09   252.3    PASS                                 
+correlation  LARGE    sequential  8        1101.988     1102.323  1102.898   0.961    2.14    1.00    100.0    PASS                                 
+correlation  LARGE    threads     8        65.177       67.755    74.370     13.006   36.22   16.91   211.3    PASS                                 
+correlation  LARGE    colmajor    8        69.028       71.822    71.048     1.315    34.20   15.96   199.6    PASS                                 
+correlation  LARGE    tiled       8        60.637       60.787    60.781     0.095    38.93   18.17   227.2    PASS                                 
+correlation  LARGE    sequential  16       1101.423     1101.985  1102.578   1.151    2.14    1.00    100.0    PASS                                 
+correlation  LARGE    threads     16       37.612       37.772    37.823     0.207    62.76   29.28   183.0    PASS                                 
+correlation  LARGE    colmajor    16       39.414       39.588    39.638     0.182    59.89   27.94   174.7    PASS                                 
+correlation  LARGE    tiled       16       31.363       31.414    31.435     0.080    75.26   35.12   219.5    PASS                                 

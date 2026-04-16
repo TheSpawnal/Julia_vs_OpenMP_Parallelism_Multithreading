@@ -1,0 +1,180 @@
+======================================================================
+DAS-5 Thread Scaling Study
+======================================================================
+Job ID:      78191
+Node:        node034
+Benchmark:   nussinov
+Dataset:     LARGE
+Threads:     1 2 4 8 16
+Output:      /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/results/scaling_study_nussinov_LARGE_20251226_154617.csv
+======================================================================
+
+>>> Running with 1 thread(s)...
+----------------------------------------------------------------------
+======================================================================
+NUSSINOV RNA FOLDING BENCHMARK
+======================================================================
+Julia version: 1.11.4
+Threads: 1
+BLAS threads: 32
+CPU threads: 32
+Dataset: LARGE (n=2500)
+Memory: 23.84 MB
+NOTE: Limited parallelism due to anti-diagonal dependencies
+
+Reference optimal score: 1250
+
+------------------------------------------------------------------------------------------
+Strategy         |    Min(ms) | Median(ms) |   Mean(ms) |  GFLOP/s |  Speedup | Eff(%)
+------------------------------------------------------------------------------------------
+sequential       |   2930.415 |   3286.864 |   3308.580 |     0.89 |     1.00x |  100.0
+simd             |   3380.693 |   3486.349 |   3544.852 |     0.77 |     0.87x |   86.7
+wavefront        |   3757.620 |   4265.039 |   4257.201 |     0.69 |     0.78x |   78.0
+tiled            |   3786.283 |   3921.307 |   3956.416 |     0.69 |     0.77x |   77.4
+------------------------------------------------------------------------------------------
+
+NOTE: Threaded strategies slower due to:
+  - Anti-diagonal parallelism limited to n-d cells
+  - Synchronization barrier after each diagonal
+  - Threading overhead exceeds computation for small diagonals
+  - Consider LARGE dataset for better scaling
+
+Results exported to: results/nussinov_LARGE_20251226_154943.csv
+Appended data from: /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/results/nussinov_LARGE_20251226_154943.csv
+
+>>> Running with 2 thread(s)...
+----------------------------------------------------------------------
+======================================================================
+NUSSINOV RNA FOLDING BENCHMARK
+======================================================================
+Julia version: 1.11.4
+Threads: 2
+BLAS threads: 1
+CPU threads: 32
+Dataset: LARGE (n=2500)
+Memory: 23.84 MB
+NOTE: Limited parallelism due to anti-diagonal dependencies
+
+Reference optimal score: 1250
+
+------------------------------------------------------------------------------------------
+Strategy         |    Min(ms) | Median(ms) |   Mean(ms) |  GFLOP/s |  Speedup | Eff(%)
+------------------------------------------------------------------------------------------
+sequential       |   3038.465 |   3188.032 |   3179.679 |     0.86 |     1.00x |  100.0
+simd             |   3564.872 |   3877.994 |   3990.812 |     0.73 |     0.85x |   85.2
+wavefront        |   2074.933 |   2251.601 |   2266.636 |     1.26 |     1.46x |   73.2
+tiled            |   2144.451 |   2473.502 |   2501.282 |     1.21 |     1.42x |   70.8
+------------------------------------------------------------------------------------------
+
+Results exported to: results/nussinov_LARGE_20251226_155230.csv
+Appended data from: /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/results/nussinov_LARGE_20251226_155230.csv
+
+>>> Running with 4 thread(s)...
+----------------------------------------------------------------------
+======================================================================
+NUSSINOV RNA FOLDING BENCHMARK
+======================================================================
+Julia version: 1.11.4
+Threads: 4
+BLAS threads: 1
+CPU threads: 32
+Dataset: LARGE (n=2500)
+Memory: 23.84 MB
+NOTE: Limited parallelism due to anti-diagonal dependencies
+
+Reference optimal score: 1250
+
+------------------------------------------------------------------------------------------
+Strategy         |    Min(ms) | Median(ms) |   Mean(ms) |  GFLOP/s |  Speedup | Eff(%)
+------------------------------------------------------------------------------------------
+sequential       |   3068.490 |   3133.192 |   3142.489 |     0.85 |     1.00x |  100.0
+simd             |   3586.258 |   3693.145 |   3683.383 |     0.73 |     0.86x |   85.6
+wavefront        |    902.626 |    993.169 |    998.073 |     2.89 |     3.40x |   85.0
+tiled            |   1002.922 |   1017.137 |   1016.750 |     2.60 |     3.06x |   76.5
+------------------------------------------------------------------------------------------
+
+Results exported to: results/nussinov_LARGE_20251226_155434.csv
+Appended data from: /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/results/nussinov_LARGE_20251226_155434.csv
+
+>>> Running with 8 thread(s)...
+----------------------------------------------------------------------
+======================================================================
+NUSSINOV RNA FOLDING BENCHMARK
+======================================================================
+Julia version: 1.11.4
+Threads: 8
+BLAS threads: 1
+CPU threads: 32
+Dataset: LARGE (n=2500)
+Memory: 23.84 MB
+NOTE: Limited parallelism due to anti-diagonal dependencies
+
+Reference optimal score: 1250
+
+------------------------------------------------------------------------------------------
+Strategy         |    Min(ms) | Median(ms) |   Mean(ms) |  GFLOP/s |  Speedup | Eff(%)
+------------------------------------------------------------------------------------------
+sequential       |   3032.889 |   3134.146 |   3141.239 |     0.86 |     1.00x |  100.0
+simd             |   3639.857 |   3823.177 |   3826.146 |     0.72 |     0.83x |   83.3
+wavefront        |    566.355 |    588.268 |    588.622 |     4.60 |     5.36x |   66.9
+tiled            |    672.166 |    675.953 |    681.973 |     3.87 |     4.51x |   56.4
+------------------------------------------------------------------------------------------
+
+Results exported to: results/nussinov_LARGE_20251226_155631.csv
+Appended data from: /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/results/nussinov_LARGE_20251226_155631.csv
+
+>>> Running with 16 thread(s)...
+----------------------------------------------------------------------
+======================================================================
+NUSSINOV RNA FOLDING BENCHMARK
+======================================================================
+Julia version: 1.11.4
+Threads: 16
+BLAS threads: 1
+CPU threads: 32
+Dataset: LARGE (n=2500)
+Memory: 23.84 MB
+NOTE: Limited parallelism due to anti-diagonal dependencies
+
+Reference optimal score: 1250
+
+------------------------------------------------------------------------------------------
+Strategy         |    Min(ms) | Median(ms) |   Mean(ms) |  GFLOP/s |  Speedup | Eff(%)
+------------------------------------------------------------------------------------------
+sequential       |   3032.582 |   3102.875 |   3161.222 |     0.86 |     1.00x |  100.0
+simd             |   3489.605 |   3555.020 |   3562.725 |     0.75 |     0.87x |   86.9
+wavefront        |    335.485 |    348.564 |    349.286 |     7.76 |     9.04x |   56.5
+tiled            |    402.794 |    413.345 |    412.314 |     6.47 |     7.53x |   47.1
+------------------------------------------------------------------------------------------
+
+Results exported to: results/nussinov_LARGE_20251226_155818.csv
+Appended data from: /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/results/nussinov_LARGE_20251226_155818.csv
+
+======================================================================
+Scaling Study Complete
+======================================================================
+Output: /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/results/scaling_study_nussinov_LARGE_20251226_154617.csv
+
+Summary:
+----------------------------------------------------------------------
+benchmark  dataset  strategy    threads  is_parallel  min_ms    median_ms  mean_ms  std_ms  gflops  speedup  efficiency_pct  verified  max_error  allocations
+nussinov   LARGE    sequential  1        2930.415     3286.864  3308.580   356.533  0.89    1.00    100.0    PASS                                 
+nussinov   LARGE    simd        1        3380.693     3486.349  3544.852   159.824  0.77    0.87    86.7     PASS                                 
+nussinov   LARGE    wavefront   1        3757.620     4265.039  4257.201   470.515  0.69    0.78    78.0     PASS                                 
+nussinov   LARGE    tiled       1        3786.283     3921.307  3956.416   136.133  0.69    0.77    77.4     PASS                                 
+nussinov   LARGE    sequential  2        3038.465     3188.032  3179.679   94.938   0.86    1.00    100.0    PASS                                 
+nussinov   LARGE    simd        2        3564.872     3877.994  3990.812   392.607  0.73    0.85    85.2     PASS                                 
+nussinov   LARGE    wavefront   2        2074.933     2251.601  2266.636   98.624   1.26    1.46    73.2     PASS                                 
+nussinov   LARGE    tiled       2        2144.451     2473.502  2501.282   307.397  1.21    1.42    70.8     PASS                                 
+nussinov   LARGE    sequential  4        3068.490     3133.192  3142.489   52.274   0.85    1.00    100.0    PASS                                 
+nussinov   LARGE    simd        4        3586.258     3693.145  3683.383   79.305   0.73    0.86    85.6     PASS                                 
+nussinov   LARGE    wavefront   4        902.626      993.169   998.073    62.817   2.89    3.40    85.0     PASS                                 
+nussinov   LARGE    tiled       4        1002.922     1017.137  1016.750   10.648   2.60    3.06    76.5     PASS                                 
+nussinov   LARGE    sequential  8        3032.889     3134.146  3141.239   67.118   0.86    1.00    100.0    PASS                                 
+nussinov   LARGE    simd        8        3639.857     3823.177  3826.146   87.428   0.72    0.83    83.3     PASS                                 
+nussinov   LARGE    wavefront   8        566.355      588.268   588.622    16.939   4.60    5.36    66.9     PASS                                 
+nussinov   LARGE    tiled       8        672.166      675.953   681.973    13.550   3.87    4.51    56.4     PASS                                 
+nussinov   LARGE    sequential  16       3032.582     3102.875  3161.222   133.613  0.86    1.00    100.0    PASS                                 
+nussinov   LARGE    simd        16       3489.605     3555.020  3562.725   36.949   0.75    0.87    86.9     PASS                                 
+nussinov   LARGE    wavefront   16       335.485      348.564   349.286    10.674   7.76    9.04    56.5     PASS                                 
+nussinov   LARGE    tiled       16       402.794      413.345   412.314    6.688    6.47    7.53    47.1     PASS                                 

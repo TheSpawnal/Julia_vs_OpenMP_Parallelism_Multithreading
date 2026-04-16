@@ -1,0 +1,179 @@
+======================================================================
+DAS-5 Thread Scaling Study
+======================================================================
+Job ID:      78189
+Node:        node053
+Benchmark:   jacobi2d
+Dataset:     LARGE
+Threads:     1 2 4 8 16
+Output:      /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/results/scaling_study_jacobi2d_LARGE_20251226_154602.csv
+======================================================================
+
+>>> Running with 1 thread(s)...
+----------------------------------------------------------------------
+======================================================================
+JACOBI-2D STENCIL BENCHMARK
+======================================================================
+Julia version: 1.11.4
+Threads: 1
+BLAS threads: 32
+CPU threads: 32
+Dataset: LARGE (n=1300, tsteps=500)
+Memory: 25.79 MB
+NOTE: Memory-bound (arithmetic intensity ~0.83 FLOPs/byte)
+
+
+------------------------------------------------------------------------------------------
+Strategy         |    Min(ms) | Median(ms) |   Mean(ms) |  GFLOP/s |  Speedup | Eff(%)
+------------------------------------------------------------------------------------------
+sequential       |   2418.511 |   2430.604 |   2432.721 |     1.74 |     1.00x |  100.0
+threads          |   2463.638 |   2474.181 |   2476.431 |     1.71 |     0.98x |   98.2
+tiled            |   7494.176 |   7515.941 |   7523.927 |     0.56 |     0.32x |   32.3
+redblack         |   4810.369 |   4879.263 |   4866.067 |     0.88 |     0.50x |   50.3
+------------------------------------------------------------------------------------------
+
+Memory Bandwidth:
+  Estimated: 16.41 GB/s
+Results exported to: results/jacobi2d_LARGE_20251226_155049.csv
+Appended data from: /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/results/jacobi2d_LARGE_20251226_155049.csv
+
+>>> Running with 2 thread(s)...
+----------------------------------------------------------------------
+======================================================================
+JACOBI-2D STENCIL BENCHMARK
+======================================================================
+Julia version: 1.11.4
+Threads: 2
+BLAS threads: 1
+CPU threads: 32
+Dataset: LARGE (n=1300, tsteps=500)
+Memory: 25.79 MB
+NOTE: Memory-bound (arithmetic intensity ~0.83 FLOPs/byte)
+
+
+------------------------------------------------------------------------------------------
+Strategy         |    Min(ms) | Median(ms) |   Mean(ms) |  GFLOP/s |  Speedup | Eff(%)
+------------------------------------------------------------------------------------------
+sequential       |   2438.869 |   2450.333 |   2452.756 |     1.73 |     1.00x |  100.0
+threads          |   1279.192 |   1288.147 |   1289.415 |     3.29 |     1.91x |   95.3
+tiled            |   3917.950 |   3931.980 |   3937.482 |     1.08 |     0.62x |   31.1
+redblack         |   2596.804 |   2708.147 |   2715.539 |     1.62 |     0.94x |   47.0
+------------------------------------------------------------------------------------------
+
+Memory Bandwidth:
+  Estimated: 31.61 GB/s
+Results exported to: results/jacobi2d_LARGE_20251226_155347.csv
+Appended data from: /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/results/jacobi2d_LARGE_20251226_155347.csv
+
+>>> Running with 4 thread(s)...
+----------------------------------------------------------------------
+======================================================================
+JACOBI-2D STENCIL BENCHMARK
+======================================================================
+Julia version: 1.11.4
+Threads: 4
+BLAS threads: 1
+CPU threads: 32
+Dataset: LARGE (n=1300, tsteps=500)
+Memory: 25.79 MB
+NOTE: Memory-bound (arithmetic intensity ~0.83 FLOPs/byte)
+
+
+------------------------------------------------------------------------------------------
+Strategy         |    Min(ms) | Median(ms) |   Mean(ms) |  GFLOP/s |  Speedup | Eff(%)
+------------------------------------------------------------------------------------------
+sequential       |   2433.800 |   2453.893 |   2454.959 |     1.73 |     1.00x |  100.0
+threads          |    370.109 |    372.751 |    375.617 |    11.38 |     6.58x |  164.4
+tiled            |    775.422 |    781.699 |    782.978 |     5.43 |     3.14x |   78.5
+redblack         |    846.288 |    891.663 |    892.602 |     4.98 |     2.88x |   71.9
+------------------------------------------------------------------------------------------
+
+Memory Bandwidth:
+  Estimated: 109.25 GB/s
+Results exported to: results/jacobi2d_LARGE_20251226_155509.csv
+Appended data from: /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/results/jacobi2d_LARGE_20251226_155509.csv
+
+>>> Running with 8 thread(s)...
+----------------------------------------------------------------------
+======================================================================
+JACOBI-2D STENCIL BENCHMARK
+======================================================================
+Julia version: 1.11.4
+Threads: 8
+BLAS threads: 1
+CPU threads: 32
+Dataset: LARGE (n=1300, tsteps=500)
+Memory: 25.79 MB
+NOTE: Memory-bound (arithmetic intensity ~0.83 FLOPs/byte)
+
+
+------------------------------------------------------------------------------------------
+Strategy         |    Min(ms) | Median(ms) |   Mean(ms) |  GFLOP/s |  Speedup | Eff(%)
+------------------------------------------------------------------------------------------
+sequential       |   2444.866 |   2455.977 |   2456.492 |     1.72 |     1.00x |  100.0
+threads          |    208.469 |    213.648 |    214.918 |    20.20 |    11.73x |  146.6
+tiled            |    452.612 |    464.908 |    466.068 |     9.31 |     5.40x |   67.5
+redblack         |    503.080 |    520.188 |    517.581 |     8.37 |     4.86x |   60.7
+------------------------------------------------------------------------------------------
+
+Memory Bandwidth:
+  Estimated: 193.96 GB/s
+Results exported to: results/jacobi2d_LARGE_20251226_155619.csv
+Appended data from: /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/results/jacobi2d_LARGE_20251226_155619.csv
+
+>>> Running with 16 thread(s)...
+----------------------------------------------------------------------
+======================================================================
+JACOBI-2D STENCIL BENCHMARK
+======================================================================
+Julia version: 1.11.4
+Threads: 16
+BLAS threads: 1
+CPU threads: 32
+Dataset: LARGE (n=1300, tsteps=500)
+Memory: 25.79 MB
+NOTE: Memory-bound (arithmetic intensity ~0.83 FLOPs/byte)
+
+
+------------------------------------------------------------------------------------------
+Strategy         |    Min(ms) | Median(ms) |   Mean(ms) |  GFLOP/s |  Speedup | Eff(%)
+------------------------------------------------------------------------------------------
+sequential       |   2419.964 |   2442.258 |   2441.877 |     1.74 |     1.00x |  100.0
+threads          |    131.102 |    135.219 |    135.342 |    32.13 |    18.46x |  115.4
+tiled            |    272.422 |    274.296 |    284.462 |    15.46 |     8.88x |   55.5
+redblack         |    307.680 |    309.986 |    311.745 |    13.69 |     7.87x |   49.2
+------------------------------------------------------------------------------------------
+
+Memory Bandwidth:
+  Estimated: 308.43 GB/s
+Results exported to: results/jacobi2d_LARGE_20251226_155720.csv
+Appended data from: /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/results/jacobi2d_LARGE_20251226_155720.csv
+
+======================================================================
+Scaling Study Complete
+======================================================================
+Output: /home/ade910/Julia_versus_OpenMP/julia_polybench_refactored/results/scaling_study_jacobi2d_LARGE_20251226_154602.csv
+
+Summary:
+----------------------------------------------------------------------
+benchmark  dataset  strategy    threads  is_parallel  min_ms    median_ms  mean_ms  std_ms  gflops  speedup  efficiency_pct  verified  max_error  allocations
+jacobi2d   LARGE    sequential  1        2418.511     2430.604  2432.721   8.030    1.74    1.00    100.0    PASS                                 
+jacobi2d   LARGE    threads     1        2463.638     2474.181  2476.431   8.526    1.71    0.98    98.2     PASS                                 
+jacobi2d   LARGE    tiled       1        7494.176     7515.941  7523.927   31.347   0.56    0.32    32.3     PASS                                 
+jacobi2d   LARGE    redblack    1        4810.369     4879.263  4866.067   35.757   0.88    0.50    50.3     PASS                                 
+jacobi2d   LARGE    sequential  2        2438.869     2450.333  2452.756   10.449   1.73    1.00    100.0    PASS                                 
+jacobi2d   LARGE    threads     2        1279.192     1288.147  1289.415   9.277    3.29    1.91    95.3     PASS                                 
+jacobi2d   LARGE    tiled       2        3917.950     3931.980  3937.482   18.859   1.08    0.62    31.1     PASS                                 
+jacobi2d   LARGE    redblack    2        2596.804     2708.147  2715.539   99.735   1.62    0.94    47.0     PASS                                 
+jacobi2d   LARGE    sequential  4        2433.800     2453.893  2454.959   13.863   1.73    1.00    100.0    PASS                                 
+jacobi2d   LARGE    threads     4        370.109      372.751   375.617    7.238    11.38   6.58    164.4    PASS                                 
+jacobi2d   LARGE    tiled       4        775.422      781.699   782.978    7.311    5.43    3.14    78.5     PASS                                 
+jacobi2d   LARGE    redblack    4        846.288      891.663   892.602    24.528   4.98    2.88    71.9     PASS                                 
+jacobi2d   LARGE    sequential  8        2444.866     2455.977  2456.492   9.171    1.72    1.00    100.0    PASS                                 
+jacobi2d   LARGE    threads     8        208.469      213.648   214.918    4.599    20.20   11.73   146.6    PASS                                 
+jacobi2d   LARGE    tiled       8        452.612      464.908   466.068    9.332    9.31    5.40    67.5     PASS                                 
+jacobi2d   LARGE    redblack    8        503.080      520.188   517.581    8.610    8.37    4.86    60.7     PASS                                 
+jacobi2d   LARGE    sequential  16       2419.964     2442.258  2441.877   13.790   1.74    1.00    100.0    PASS                                 
+jacobi2d   LARGE    threads     16       131.102      135.219   135.342    4.343    32.13   18.46   115.4    PASS                                 
+jacobi2d   LARGE    tiled       16       272.422      274.296   284.462    27.523   15.46   8.88    55.5     PASS                                 
+jacobi2d   LARGE    redblack    16       307.680      309.986   311.745    3.949    13.69   7.87    49.2     PASS                                 
