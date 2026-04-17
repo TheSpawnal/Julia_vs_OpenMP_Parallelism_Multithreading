@@ -15,6 +15,7 @@ This benchmark suite provides OpenMP/C implementations of selected PolyBench ker
 | cholesky | Solver | Cholesky decomposition | Limited (row dependencies) |
 | correlation | Data Mining | Pearson correlation matrix | Medium (triangular) |
 | nussinov | Dynamic Programming | RNA secondary structure | Low (anti-diagonal only) |
+| heat3d | Stencil | 3D heat equation (7-point Jacobi) | High (memory-bound) |
 
 ## Strategies Implemented
 
@@ -178,7 +179,6 @@ openmp_polybench_refactored/
 │   ├── metrics.c            # Metrics implementation
 │   ├── benchmark_2mm.c      # 2MM kernel
 │   ├── benchmark_3mm.c      # 3MM kernel
-|-> heat3d.c 
 │   ├── benchmark_cholesky.c # Cholesky decomposition
 │   ├── benchmark_correlation.c # Correlation matrix
 │   └── benchmark_nussinov.c # Nussinov RNA folding
@@ -224,3 +224,32 @@ make native   # Optimized for your specific CPU
 
 ### Verification Failures
 Small numerical differences are expected with different optimization levels. Tolerance is set to 1e-6.
+
+
+# Clean old results, rebuild
+cd openmp_polybench_refactored
+rm -f results/*.csv
+make clean && mkdir -p obj results && make
+
+# THE SCALING LOOP -- that's it, nothing fancy
+export OMP_PROC_BIND=close OMP_PLACES=cores
+for b in 2mm 3mm cholesky correlation nussinov heat3d; do
+  for t in 1 2 4; do
+    OMP_NUM_THREADS=$t ./benchmark_$b --dataset MEDIUM --threads $t \
+      --iterations 5 --warmup 2 --output csv
+  done
+done
+
+# Each run produces: results/{bench}_{dataset}_{threads}T_{timestamp}.csv
+# Unique filenames, no collisions, no merging
+
+# Visualize directly
+python3 scripts/visualize_benchmarks.py results/*.csv -o plots -t "WSL2"
+
+# large
+for b in 2mm 3mm cholesky correlation nussinov heat3d; do
+  for t in 1 2 4; do
+    OMP_NUM_THREADS=$t ./benchmark_$b --dataset LARGE --threads $t \
+      --iterations 5 --warmup 2 --output csv
+  done
+done

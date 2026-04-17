@@ -1,5 +1,6 @@
 #include "metrics.h"
 #include <float.h>
+#include <unistd.h>
 
 // Comparison function for qsort
 static int compare_double(const void* a, const void* b) {
@@ -190,6 +191,16 @@ void metrics_export_csv(const MetricsCollector* mc, const char* filepath) {
         fprintf(stderr, "ERROR: Cannot open %s for writing\n", filepath);
         return;
     }
+    
+    // Machine metadata (comment lines, parseable with pandas comment='#')
+    char hostname[256] = "unknown";
+    gethostname(hostname, sizeof(hostname));
+    char timestamp[64];
+    get_timestamp(timestamp, sizeof(timestamp));
+    fprintf(fp, "# host=%s,threads=%d,timestamp=%s\n", hostname, mc->threads, timestamp);
+#ifdef __VERSION__
+    fprintf(fp, "# compiler=%s\n", __VERSION__);
+#endif
     
     // CSV header - aligned with Julia format
     fprintf(fp, "benchmark,dataset,strategy,threads,is_parallel,min_ms,median_ms,mean_ms,std_ms,gflops,speedup,efficiency_pct,verified,max_error,allocations\n");

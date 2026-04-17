@@ -1,0 +1,8 @@
+# host=LAPTOP-0GOGN00R,threads=1,timestamp=20260417_194629
+# compiler=11.4.0
+benchmark,dataset,strategy,threads,is_parallel,min_ms,median_ms,mean_ms,std_ms,gflops,speedup,efficiency_pct,verified,max_error,allocations
+nussinov,LARGE,sequential,1,false,10034.8452,10127.0979,10150.3467,90.1390,0.26,1.00,,PASS,0.00e+00,0
+nussinov,LARGE,wavefront,1,true,10776.6085,10829.9627,10922.3603,215.4965,0.24,0.93,93.12,PASS,0.00e+00,0
+nussinov,LARGE,tiled,1,true,10746.9967,10788.4501,10838.6808,92.7355,0.24,0.93,93.37,PASS,0.00e+00,0
+nussinov,LARGE,tasks,1,true,10091.7369,10240.0026,10655.4171,946.6959,0.26,0.99,99.44,PASS,0.00e+00,0
+nussinov,LARGE,simd,1,false,9450.1496,9490.9897,9519.8771,89.3481,0.28,1.06,,PASS,0.00e+00,0

@@ -92,48 +92,36 @@ static void kernel_nussinov_wavefront(int n, base* seq, int* table) {
     }
 }
 
-// Tiled wavefront (better cache behavior)
+// Tiled: anti-diagonal with cache-friendly chunked scheduling
+// Uses same correct ordering as wavefront but groups cells into
+// TILE_SIZE chunks for better L2 cache reuse in the k-loop.
 #define TILE_SIZE 64
 
 static void kernel_nussinov_tiled(int n, base* seq, int* table) {
-    // Tile the anti-diagonal computation
-    int num_tiles = (n + TILE_SIZE - 1) / TILE_SIZE;
-    
-    // Process tile diagonals
-    for (int tile_diag = 0; tile_diag < 2 * num_tiles - 1; tile_diag++) {
-        #pragma omp parallel for schedule(dynamic)
-        for (int ti = MAX(0, tile_diag - num_tiles + 1); ti <= MIN(tile_diag, num_tiles - 1); ti++) {
-            int tj = tile_diag - ti;
-            if (tj < ti) continue;
-            
-            int i_start = ti * TILE_SIZE;
-            int j_start = tj * TILE_SIZE;
-            int i_end = MIN(i_start + TILE_SIZE, n);
-            int j_end = MIN(j_start + TILE_SIZE, n);
-            
-            // Process tile (anti-diagonal within tile)
-            for (int i = i_end - 1; i >= i_start; i--) {
-                for (int j = MAX(j_start, i + 1); j < j_end; j++) {
-                    if (j - 1 >= 0)
-                        table[IDX2(i, j, n)] = max_score(table[IDX2(i, j, n)], table[IDX2(i, j-1, n)]);
-                    
-                    if (i + 1 < n)
-                        table[IDX2(i, j, n)] = max_score(table[IDX2(i, j, n)], table[IDX2(i+1, j, n)]);
-                    
-                    if (j - 1 >= 0 && i + 1 < n) {
-                        if (i < j - 1)
-                            table[IDX2(i, j, n)] = max_score(table[IDX2(i, j, n)],
-                                                             table[IDX2(i+1, j-1, n)] + match(seq[i], seq[j]));
-                        else
-                            table[IDX2(i, j, n)] = max_score(table[IDX2(i, j, n)],
-                                                             match(seq[i], seq[j]));
-                    }
-                    
-                    for (int k = i + 1; k < j; k++)
-                        table[IDX2(i, j, n)] = max_score(table[IDX2(i, j, n)],
-                                                         table[IDX2(i, k, n)] + table[IDX2(k+1, j, n)]);
-                }
+    for (int diag = 1; diag < n; diag++) {
+        int len = n - diag;
+        #pragma omp parallel for schedule(dynamic, TILE_SIZE)
+        for (int i = 0; i < len; i++) {
+            int j = i + diag;
+
+            if (j - 1 >= 0)
+                table[IDX2(i, j, n)] = max_score(table[IDX2(i, j, n)], table[IDX2(i, j-1, n)]);
+
+            if (i + 1 < n)
+                table[IDX2(i, j, n)] = max_score(table[IDX2(i, j, n)], table[IDX2(i+1, j, n)]);
+
+            if (j - 1 >= 0 && i + 1 < n) {
+                if (i < j - 1)
+                    table[IDX2(i, j, n)] = max_score(table[IDX2(i, j, n)],
+                                                     table[IDX2(i+1, j-1, n)] + match(seq[i], seq[j]));
+                else
+                    table[IDX2(i, j, n)] = max_score(table[IDX2(i, j, n)],
+                                                     match(seq[i], seq[j]));
             }
+
+            for (int k = i + 1; k < j; k++)
+                table[IDX2(i, j, n)] = max_score(table[IDX2(i, j, n)],
+                                                 table[IDX2(i, k, n)] + table[IDX2(k+1, j, n)]);
         }
     }
 }

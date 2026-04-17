@@ -1,0 +1,31 @@
+# host=LAPTOP-0GOGN00R,cpu=Intel(R) Core(TM) i5-10210U CPU @ 1.60GHz,compiler=gcc (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0
+# dataset=MEDIUM,mode=full,date=20260417_121441
+benchmark,dataset,strategy,threads,is_parallel,min_ms,median_ms,mean_ms,std_ms,gflops,speedup,efficiency_pct,verified,max_error,allocations
+heat3d,MEDIUM,sequential,1,false,12.5069,13.6829,13.8590,1.2760,11.41,1.00,,PASS,0.00e+00,0
+heat3d,MEDIUM,threads_static,1,true,13.7823,14.6616,15.2348,1.6972,10.35,0.91,90.75,PASS,0.00e+00,0
+heat3d,MEDIUM,threads_dynamic,1,true,15.4916,16.1005,16.7121,1.4402,9.21,0.81,80.73,PASS,0.00e+00,0
+heat3d,MEDIUM,tiled,1,true,13.9851,14.2738,14.2558,0.1274,10.20,0.89,89.43,PASS,0.00e+00,0
+heat3d,MEDIUM,simd,1,false,12.9374,13.1948,13.2179,0.2551,11.03,0.97,,PASS,0.00e+00,0
+heat3d,MEDIUM,collapsed,1,true,48.4056,49.9987,50.2563,1.8538,2.95,0.26,25.84,PASS,0.00e+00,0
+heat3d,MEDIUM,red_black,1,true,21.6025,23.0293,23.4036,1.9094,6.60,0.58,57.90,PASS,0.00e+00,0
+heat3d,MEDIUM,sequential,2,false,12.6047,13.0095,13.1374,0.5983,11.32,1.00,,PASS,0.00e+00,0
+heat3d,MEDIUM,threads_static,2,true,7.0239,7.1196,7.2972,0.3329,20.31,1.79,89.73,PASS,0.00e+00,0
+heat3d,MEDIUM,threads_dynamic,2,true,9.6063,10.0026,10.0027,0.2365,14.85,1.31,65.61,PASS,0.00e+00,0
+heat3d,MEDIUM,tiled,2,true,8.0458,8.2322,8.3186,0.3270,17.73,1.57,78.33,PASS,0.00e+00,0
+heat3d,MEDIUM,simd,2,false,6.8512,7.1427,7.2184,0.4905,20.82,1.84,,PASS,0.00e+00,0
+heat3d,MEDIUM,collapsed,2,true,25.1341,25.5076,27.8725,5.8113,5.68,0.50,25.07,PASS,0.00e+00,0
+heat3d,MEDIUM,red_black,2,true,11.1372,11.3870,11.3955,0.2035,12.81,1.13,56.59,PASS,0.00e+00,0
+heat3d,MEDIUM,sequential,4,false,12.5390,12.9835,13.1855,0.8710,11.38,1.00,,PASS,0.00e+00,0
+heat3d,MEDIUM,threads_static,4,true,3.8423,7.2970,6.8626,3.0683,37.13,3.26,81.58,PASS,0.00e+00,0
+heat3d,MEDIUM,threads_dynamic,4,true,5.5909,6.4408,6.2845,0.5129,25.52,2.24,56.07,PASS,0.00e+00,0
+heat3d,MEDIUM,tiled,4,true,4.6116,6.5034,6.1417,1.3544,30.94,2.72,67.98,PASS,0.00e+00,0
+heat3d,MEDIUM,simd,4,false,3.7477,4.0037,4.5171,1.1262,38.07,3.35,,PASS,0.00e+00,0
+heat3d,MEDIUM,collapsed,4,true,13.0837,13.4338,15.7407,4.3215,10.90,0.96,23.96,PASS,0.00e+00,0
+heat3d,MEDIUM,red_black,4,true,6.1746,10.2851,8.8165,2.1774,23.11,2.03,50.77,PASS,0.00e+00,0
+heat3d,MEDIUM,sequential,8,false,12.6832,15.2184,15.0248,1.6258,11.25,1.00,,PASS,0.00e+00,0
+heat3d,MEDIUM,threads_static,8,true,4.2118,4.6751,4.9371,0.7999,33.87,3.01,37.64,PASS,0.00e+00,0
+heat3d,MEDIUM,threads_dynamic,8,true,4.7642,4.8193,5.9995,2.7711,29.95,2.66,33.28,PASS,0.00e+00,0
+heat3d,MEDIUM,tiled,8,true,4.7807,4.8614,5.6622,1.1071,29.84,2.65,33.16,PASS,0.00e+00,0
+heat3d,MEDIUM,simd,8,false,3.8447,3.9321,4.0433,0.2616,37.11,3.30,,PASS,0.00e+00,0
+heat3d,MEDIUM,collapsed,8,true,12.7657,13.2112,13.2435,0.3433,11.18,0.99,12.42,PASS,0.00e+00,0
+heat3d,MEDIUM,red_black,8,true,6.2543,6.4776,7.0203,0.9532,22.81,2.03,25.35,PASS,0.00e+00,0

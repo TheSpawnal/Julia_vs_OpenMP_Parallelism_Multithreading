@@ -10,7 +10,7 @@
 #SBATCH --job-name=all_benchmarks
 #SBATCH --output=all_bench_%j.out
 #SBATCH --error=all_bench_%j.err
-#SBATCH --time=00:30:00
+#SBATCH --time=02:00:00
 #SBATCH -N 1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=16
@@ -26,7 +26,7 @@ THREADS=16
 ITERATIONS=10
 WARMUP=3
 
-BENCHMARKS="2mm 3mm cholesky correlation nussinov"
+BENCHMARKS="2mm 3mm cholesky correlation nussinov heat3d"
 
 PROJECT_DIR="$HOME/openmp_polybench_refactored"
 cd "$PROJECT_DIR" || exit 1
