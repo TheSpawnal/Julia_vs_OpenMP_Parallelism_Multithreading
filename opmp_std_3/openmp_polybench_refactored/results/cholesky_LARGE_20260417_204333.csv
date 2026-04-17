@@ -1,8 +1,0 @@
-# host=LAPTOP-0GOGN00R,threads=2,timestamp=20260417_204333
-# compiler=11.4.0
-benchmark,dataset,strategy,threads,is_parallel,min_ms,median_ms,mean_ms,std_ms,gflops,speedup,efficiency_pct,verified,max_error,allocations
-cholesky,LARGE,sequential,2,false,1654.2979,1661.3952,1669.9325,16.9161,1.61,1.00,,PASS,0.00e+00,0
-cholesky,LARGE,threads_static,2,true,4739.8840,5050.2038,4975.9456,141.4235,0.56,0.35,17.45,PASS,0.00e+00,0
-cholesky,LARGE,tiled,2,true,587.0469,819.6455,873.0794,292.3369,4.54,2.82,140.90,PASS,1.03e-12,0
-cholesky,LARGE,simd,2,false,2097.1855,2116.7344,2122.5389,22.5307,1.27,0.79,,PASS,1.32e-10,0
-cholesky,LARGE,tasks,2,true,710.9606,723.4615,726.0625,12.2012,3.75,2.33,116.34,PASS,1.03e-12,0

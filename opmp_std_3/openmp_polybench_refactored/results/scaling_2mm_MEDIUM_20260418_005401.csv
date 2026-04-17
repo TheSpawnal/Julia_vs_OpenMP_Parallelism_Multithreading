@@ -1,0 +1,31 @@
+# schema=1; language=openmp; host=LAPTOP-0GOGN00R; os=Linux-6.6.87.2-microsoft-standard-WSL2; cpu=Intel(R)_Core(TM)_i5-10210U_CPU_@_1.60GHz; cores_logical=8; cores_physical=4; compiler=gcc; compiler_version=11; run_date=2026-04-18T00:54:01+02:00; project=openmp_polybench_refactored; git_commit=af15da5b63e6
+# benchmark=2mm; dataset=MEDIUM; iterations=7; warmup=3; mode=full; omp_proc_bind=close; omp_places=cores; omp_schedule=unset
+benchmark,dataset,strategy,threads,is_parallel,min_ms,median_ms,mean_ms,std_ms,gflops,speedup,efficiency_pct,verified,max_error,allocations
+2mm,MEDIUM,sequential,1,false,14.2937,15.6262,15.4571,0.7663,2.06,1.00,,PASS,0.00e+00,0
+2mm,MEDIUM,threads_static,1,true,14.6425,15.0208,15.3506,1.0017,2.01,0.98,97.62,PASS,0.00e+00,0
+2mm,MEDIUM,threads_dynamic,1,true,15.0627,15.5274,15.9053,0.9749,1.96,0.95,94.89,PASS,0.00e+00,0
+2mm,MEDIUM,tiled,1,true,9.2499,10.2372,10.3214,0.9158,3.18,1.55,154.53,PASS,1.57e-15,0
+2mm,MEDIUM,simd,1,false,7.8155,8.3828,8.4442,0.5324,3.77,1.83,,PASS,1.84e-15,0
+2mm,MEDIUM,tasks,1,true,14.6295,14.7481,15.1880,0.7210,2.01,0.98,97.70,PASS,0.00e+00,0
+2mm,MEDIUM,collapsed,1,true,14.8084,15.0361,15.0354,0.2321,1.99,0.97,96.52,PASS,0.00e+00,0
+2mm,MEDIUM,sequential,2,false,14.4953,14.7458,14.8412,0.3286,2.03,1.00,,PASS,0.00e+00,0
+2mm,MEDIUM,threads_static,2,true,7.5068,7.7583,7.8358,0.3313,3.92,1.93,96.55,PASS,0.00e+00,0
+2mm,MEDIUM,threads_dynamic,2,true,7.8106,8.2412,8.5063,0.7617,3.77,1.86,92.79,PASS,0.00e+00,0
+2mm,MEDIUM,tiled,2,true,5.1852,5.2358,5.2910,0.1317,5.68,2.80,139.77,PASS,1.57e-15,0
+2mm,MEDIUM,simd,2,false,7.6224,7.9726,8.1186,0.4435,3.86,1.90,,PASS,1.84e-15,0
+2mm,MEDIUM,tasks,2,true,7.5902,7.7744,7.8435,0.2122,3.88,1.91,95.49,PASS,0.00e+00,0
+2mm,MEDIUM,collapsed,2,true,7.5266,7.7684,8.7867,2.0085,3.91,1.93,96.29,PASS,0.00e+00,0
+2mm,MEDIUM,sequential,4,false,14.5426,14.6477,14.8213,0.4670,2.03,1.00,,PASS,0.00e+00,0
+2mm,MEDIUM,threads_static,4,true,3.9877,4.7316,4.4801,0.3745,7.39,3.65,91.17,PASS,0.00e+00,0
+2mm,MEDIUM,threads_dynamic,4,true,4.9213,4.9910,5.0042,0.0729,5.98,2.96,73.88,PASS,0.00e+00,0
+2mm,MEDIUM,tiled,4,true,4.3569,4.4271,4.4418,0.0760,6.76,3.34,83.45,PASS,1.57e-15,0
+2mm,MEDIUM,simd,4,false,7.5020,9.1805,8.7345,1.0301,3.93,1.94,,PASS,1.84e-15,0
+2mm,MEDIUM,tasks,4,true,3.9823,4.5830,4.5321,0.2566,7.40,3.65,91.30,PASS,0.00e+00,0
+2mm,MEDIUM,collapsed,4,true,5.1249,5.3172,5.2778,0.0924,5.75,2.84,70.94,PASS,0.00e+00,0
+2mm,MEDIUM,sequential,8,false,14.5252,14.6641,14.7555,0.3213,2.03,1.00,,PASS,0.00e+00,0
+2mm,MEDIUM,threads_static,8,true,2.3829,2.5055,3.4028,1.8197,12.36,6.10,76.20,PASS,0.00e+00,0
+2mm,MEDIUM,threads_dynamic,8,true,3.2866,3.3276,3.6287,0.7926,8.96,4.42,55.24,PASS,0.00e+00,0
+2mm,MEDIUM,tiled,8,true,2.4649,2.5744,3.4873,1.8925,11.95,5.89,73.66,PASS,1.57e-15,0
+2mm,MEDIUM,simd,8,false,7.8666,8.1078,8.0719,0.0962,3.74,1.85,,PASS,1.84e-15,0
+2mm,MEDIUM,tasks,8,true,2.5782,2.7730,4.4228,3.3358,11.42,5.63,70.42,PASS,0.00e+00,0
+2mm,MEDIUM,collapsed,8,true,2.6491,5.5099,6.1981,3.3408,11.12,5.48,68.54,PASS,0.00e+00,0

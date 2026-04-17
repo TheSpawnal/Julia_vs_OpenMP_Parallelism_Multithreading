@@ -1,0 +1,3 @@
+# schema=1; language=openmp; host=LAPTOP-0GOGN00R; os=Linux-6.6.87.2-microsoft-standard-WSL2; cpu=Intel(R)_Core(TM)_i5-10210U_CPU_@_1.60GHz; cores_logical=8; cores_physical=4; compiler=gcc; compiler_version=11; run_date=2026-04-18T00:54:01+02:00; project=openmp_polybench_refactored; git_commit=af15da5b63e6
+# benchmark=3mm; dataset=MEDIUM; iterations=7; warmup=3; mode=full; omp_proc_bind=close; omp_places=cores; omp_schedule=unset
+benchmark,dataset,strategy,threads,is_parallel,min_ms,median_ms,mean_ms,std_ms,gflops,speedup,efficiency_pct,verified,max_error,allocations

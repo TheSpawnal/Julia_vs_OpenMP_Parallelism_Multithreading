@@ -1,0 +1,10 @@
+# schema=1; language=openmp; host=LAPTOP-0GOGN00R; os=Linux-6.6.87.2-microsoft-standard-WSL2; cpu=Intel(R)_Core(TM)_i5-10210U_CPU_@_1.60GHz; cores_logical=8; compiler=gcc; compiler_version=11.4.0; compiler_flags=unknown; openmp=201511; run_date=2026-04-18T00:54:08+0200; project=openmp_polybench_refactored; project_version=0.3; git_commit=unknown
+# benchmark=heat3d; dataset=MEDIUM; threads=8; omp_proc_bind=close; omp_places=cores; omp_schedule=unset
+benchmark,dataset,strategy,threads,is_parallel,min_ms,median_ms,mean_ms,std_ms,gflops,speedup,efficiency_pct,verified,max_error,allocations
+heat3d,MEDIUM,sequential,8,false,11.7433,12.6662,13.7291,1.8757,12.15,1.00,,PASS,0.00e+00,0
+heat3d,MEDIUM,threads_static,8,true,3.5877,4.6517,5.5632,2.5479,39.77,3.27,40.92,PASS,0.00e+00,0
+heat3d,MEDIUM,threads_dynamic,8,true,4.2268,5.1283,6.6937,2.7485,33.75,2.78,34.73,PASS,0.00e+00,0
+heat3d,MEDIUM,tiled,8,true,4.3187,5.5212,6.9476,2.9245,33.03,2.72,33.99,PASS,0.00e+00,0
+heat3d,MEDIUM,simd,8,false,3.2612,4.1730,4.8248,2.0762,43.75,3.60,,PASS,0.00e+00,0
+heat3d,MEDIUM,collapsed,8,true,12.4304,17.1731,18.0326,4.2080,11.48,0.94,11.81,PASS,0.00e+00,0
+heat3d,MEDIUM,red_black,8,true,5.4294,10.7840,9.6145,2.5969,26.28,2.16,27.04,PASS,0.00e+00,0

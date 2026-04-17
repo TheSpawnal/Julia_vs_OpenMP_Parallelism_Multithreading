@@ -1,0 +1,23 @@
+# schema=1; language=openmp; host=LAPTOP-0GOGN00R; os=Linux-6.6.87.2-microsoft-standard-WSL2; cpu=Intel(R)_Core(TM)_i5-10210U_CPU_@_1.60GHz; cores_logical=8; cores_physical=4; compiler=gcc; compiler_version=11; run_date=2026-04-18T00:54:01+02:00; project=openmp_polybench_refactored; git_commit=af15da5b63e6
+# benchmark=nussinov; dataset=MEDIUM; iterations=7; warmup=3; mode=full; omp_proc_bind=close; omp_places=cores; omp_schedule=unset
+benchmark,dataset,strategy,threads,is_parallel,min_ms,median_ms,mean_ms,std_ms,gflops,speedup,efficiency_pct,verified,max_error,allocations
+nussinov,MEDIUM,sequential,1,false,14.9624,15.3550,15.4898,0.5847,1.39,1.00,,PASS,0.00e+00,0
+nussinov,MEDIUM,wavefront,1,true,15.8078,16.3239,19.0802,6.2215,1.32,0.95,94.65,PASS,0.00e+00,0
+nussinov,MEDIUM,tiled,1,true,15.9540,16.5270,17.0980,1.4853,1.31,0.94,93.78,PASS,0.00e+00,0
+nussinov,MEDIUM,tasks,1,true,15.8763,16.3566,16.5955,0.8702,1.31,0.94,94.24,PASS,0.00e+00,0
+nussinov,MEDIUM,simd,1,false,13.9777,14.5848,14.4528,0.3093,1.49,1.07,,PASS,0.00e+00,0
+nussinov,MEDIUM,sequential,2,false,14.5478,15.1243,15.2187,0.4901,1.43,1.00,,PASS,0.00e+00,0
+nussinov,MEDIUM,wavefront,2,true,8.1779,9.0233,10.3174,3.2203,2.55,1.78,88.95,PASS,0.00e+00,0
+nussinov,MEDIUM,tiled,2,true,10.4330,10.5953,10.7389,0.3387,2.00,1.39,69.72,PASS,0.00e+00,0
+nussinov,MEDIUM,tasks,2,true,9.4312,9.7262,9.6986,0.1432,2.21,1.54,77.13,PASS,0.00e+00,0
+nussinov,MEDIUM,simd,2,false,14.0691,14.6164,14.6037,0.3033,1.48,1.03,,PASS,0.00e+00,0
+nussinov,MEDIUM,sequential,4,false,14.6392,15.0110,15.1021,0.4293,1.42,1.00,,PASS,0.00e+00,0
+nussinov,MEDIUM,wavefront,4,true,8.3545,8.6197,8.5878,0.1495,2.49,1.75,43.81,PASS,0.00e+00,0
+nussinov,MEDIUM,tiled,4,true,7.5323,9.1605,9.0808,0.8402,2.77,1.94,48.59,PASS,0.00e+00,0
+nussinov,MEDIUM,tasks,4,true,6.4618,7.8700,7.6046,0.8056,3.22,2.27,56.64,PASS,0.00e+00,0
+nussinov,MEDIUM,simd,4,false,14.4996,15.0988,15.3115,0.7430,1.44,1.01,,PASS,0.00e+00,0
+nussinov,MEDIUM,sequential,8,false,14.8275,15.3370,15.3859,0.6445,1.41,1.00,,PASS,0.00e+00,0
+nussinov,MEDIUM,wavefront,8,true,4.6587,4.8536,7.9574,4.5094,4.47,3.18,39.78,PASS,0.00e+00,0
+nussinov,MEDIUM,tiled,8,true,14.5125,16.1513,16.7050,2.9781,1.44,1.02,12.77,PASS,0.00e+00,0
+nussinov,MEDIUM,tasks,8,true,8.1977,8.9772,10.1376,1.8763,2.54,1.81,22.61,PASS,0.00e+00,0
+nussinov,MEDIUM,simd,8,false,14.2859,16.4555,20.6604,8.3331,1.46,1.04,,PASS,0.00e+00,0
