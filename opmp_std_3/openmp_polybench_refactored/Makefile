@@ -51,8 +51,12 @@ benchmark_cholesky: $(SRC_DIR)/benchmark_cholesky.c $(COMMON_OBJ)
 benchmark_correlation: $(SRC_DIR)/benchmark_correlation.c $(COMMON_OBJ)
 	$(CC) $(CFLAGS) $(INCLUDES) $< $(COMMON_OBJ) -o $@ $(LDFLAGS)
 
+benchmark_nussinov: $(SRC_DIR)/benchmark_heat3d.c $(COMMON_OBJ)
+	$(CC) $(CFLAGS) $(INCLUDES) $< $(COMMON_OBJ) -o $@ $(LDFLAGS)
+
 benchmark_nussinov: $(SRC_DIR)/benchmark_nussinov.c $(COMMON_OBJ)
 	$(CC) $(CFLAGS) $(INCLUDES) $< $(COMMON_OBJ) -o $@ $(LDFLAGS)
+
 
 # Debug build
 debug: CFLAGS = -O0 -g -fopenmp -Wall -Wextra -DDEBUG
