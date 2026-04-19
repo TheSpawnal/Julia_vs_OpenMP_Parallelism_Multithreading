@@ -53,7 +53,7 @@ WARMUP="${WARMUP:-2}"
 THREADS="${THREADS:-$SLURM_CPUS_PER_TASK}"
 SKIP_BROKEN="${SKIP_BROKEN:-1}"
 
-PROJECT_DIR="$HOME/openmp_polybench_refactored"
+PROJECT_DIR="$HOME/ade910/latest/Julia_vs_OpenMP_Parallelism_Multithreading/opmp_std_3/openmp_polybench_refactored/"
 RESULTS_DIR="$PROJECT_DIR/results"
 mkdir -p "$RESULTS_DIR"
 
