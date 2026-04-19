@@ -1,22 +1,29 @@
 /*
  * Heat-3D Benchmark - 3D Heat Equation Stencil (PolyBench)
- * 7-point stencil, explicit Euler, Jacobi double-buffer iteration
+ * 7-point stencil, explicit Euler, Jacobi double-buffer iteration.
  *
  * Physical model: du/dt = alpha * laplacian(u)
  * Discretization: 7-point finite difference stencil
- * CFL stability:  alpha * dt/dx^2 = 0.125 < 1/6  (stable in 3D)
+ * CFL stability : alpha * dt/dx^2 = 0.125 < 1/6  (stable in 3D)
  *
- * Memory-bound kernel: arithmetic intensity ~ 1.6 FLOP/byte
- * Performance limited by memory bandwidth, not compute.
+ * Memory-bound kernel. Arithmetic intensity ~0.2-0.8 FLOP/byte
+ * (13 FLOPs/point, 7 reads + 1 write; 16 B best-case with full reuse,
+ *  64 B worst-case cold). Performance limited by memory bandwidth.
  *
- * Strategies aligned with Julia implementation:
- * - sequential:       Baseline Jacobi iteration (double-buffered)
- * - threads_static:   collapse(2) on i,j with static scheduling
- * - threads_dynamic:  collapse(2) on i,j with dynamic scheduling
- * - tiled:            Spatial cache-blocking on i,j tile loops
- * - simd:             pragma omp simd on k-loop + collapse(2)
- * - collapsed:        collapse(3) full parallelism
- * - red_black:        Gauss-Seidel red-black ordering (in-place)
+ * Strategies (aligned with Julia heat3d when present):
+ *   sequential       - Baseline Jacobi iteration (double-buffered)
+ *   threads_static   - collapse(2) on i,j with static scheduling
+ *   threads_dynamic  - collapse(2) on i,j with dynamic(4) scheduling
+ *   tiled            - Spatial cache-blocking on i,j tile loops
+ *   simd             - #pragma omp simd on k-loop + collapse(2) on i,j
+ *   collapsed        - collapse(3) full parallelism
+ *   red_black        - Gauss-Seidel red-black ordering (in-place)
+ *
+ * Verification:
+ *   Jacobi-family strategies compare against the sequential Jacobi reference.
+ *   red_black compares against a sequential red-black reference, since it
+ *   follows a different numerical trajectory than Jacobi. Both use the strict
+ *   VERIFY_TOLERANCE (1e-6) from benchmark_common.h.
  *
  * References:
  *   PolyBench/C 4.2.1 - heat-3d kernel
@@ -27,6 +34,7 @@
 #include "benchmark_common.h"
 #include "metrics.h"
 #include <getopt.h>
+#include <strings.h>   /* strcasecmp */
 
 /* ------------------------------------------------------------------ */
 /*  Dataset configurations (PolyBench standard sizes)                 */
@@ -38,22 +46,22 @@ typedef struct {
 } DatasetHeat3D;
 
 static const DatasetHeat3D DATASETS[] = {
-    {10,   20},     /* MINI       */
-    {20,   40},     /* SMALL      */
-    {40,   100},    /* MEDIUM     */
-    {120,  500},    /* LARGE      */
-    {200,  1000}    /* EXTRALARGE */
+    {10,   20},    /* MINI       */
+    {20,   40},    /* SMALL      */
+    {40,   100},   /* MEDIUM     */
+    {120,  500},   /* LARGE      */
+    {200,  1000}   /* EXTRALARGE */
 };
 
-/* Stencil coefficient  (thermal_diffusivity * dt / dx^2) */
+/* Stencil coefficient (thermal_diffusivity * dt / dx^2) */
 #define COEFF 0.125
 
-/* Tile size for spatial cache blocking (L1-friendly: 8^3*8B = 4 KB) */
+/* Tile size for spatial cache blocking (L1-friendly: TILE_I*TILE_J*n doubles) */
 #define TILE_I 8
 #define TILE_J 8
 
 /* ------------------------------------------------------------------ */
-/*  7-point stencil inline                                            */
+/*  7-point stencil                                                   */
 /* ------------------------------------------------------------------ */
 
 static inline double stencil_7pt(const double* restrict src,
@@ -100,20 +108,17 @@ static double verify_result(int n, const double* ref, const double* out) {
 
 /* ------------------------------------------------------------------ */
 /*  Strategy 1: Sequential baseline (Jacobi double-buffer)            */
-/*  Two sweeps per timestep: A->B then B->A                           */
 /* ------------------------------------------------------------------ */
 
 static void kernel_heat3d_sequential(int tsteps, int n,
                                      double* restrict A,
                                      double* restrict B) {
     for (int t = 0; t < tsteps; t++) {
-        /* Sweep 1: A -> B */
         for (int i = 1; i < n-1; i++)
             for (int j = 1; j < n-1; j++)
                 for (int k = 1; k < n-1; k++)
                     B[IDX3(i,j,k,n,n)] = stencil_7pt(A, i, j, k, n);
 
-        /* Sweep 2: B -> A */
         for (int i = 1; i < n-1; i++)
             for (int j = 1; j < n-1; j++)
                 for (int k = 1; k < n-1; k++)
@@ -124,7 +129,6 @@ static void kernel_heat3d_sequential(int tsteps, int n,
 /* ------------------------------------------------------------------ */
 /*  Strategy 2: threads_static                                        */
 /*  collapse(2) on i,j keeps k contiguous for vectorization           */
-/*  Static scheduling: uniform work per (i,j) pair                    */
 /* ------------------------------------------------------------------ */
 
 static void kernel_heat3d_threads_static(int tsteps, int n,
@@ -148,7 +152,6 @@ static void kernel_heat3d_threads_static(int tsteps, int n,
 /* ------------------------------------------------------------------ */
 /*  Strategy 3: threads_dynamic                                       */
 /*  Dynamic scheduling absorbs load imbalance from OS jitter          */
-/*  Chunk=4: amortize scheduling overhead vs granularity              */
 /* ------------------------------------------------------------------ */
 
 static void kernel_heat3d_threads_dynamic(int tsteps, int n,
@@ -170,16 +173,14 @@ static void kernel_heat3d_threads_dynamic(int tsteps, int n,
 }
 
 /* ------------------------------------------------------------------ */
-/*  Strategy 4: Tiled (spatial cache-blocking)                        */
-/*  Tile i,j dimensions for L1/L2 reuse of plane neighbors            */
-/*  k left linear: unit-stride, benefits from HW prefetch             */
+/*  Strategy 4: Tiled (spatial cache blocking)                        */
+/*  Tile i,j for L1/L2 plane-neighbor reuse; k stays linear.          */
 /* ------------------------------------------------------------------ */
 
 static void kernel_heat3d_tiled(int tsteps, int n,
                                 double* restrict A,
                                 double* restrict B) {
     for (int t = 0; t < tsteps; t++) {
-        /* Sweep 1: A -> B */
         #pragma omp parallel for collapse(2) schedule(static)
         for (int ii = 1; ii < n-1; ii += TILE_I) {
             for (int jj = 1; jj < n-1; jj += TILE_J) {
@@ -192,7 +193,6 @@ static void kernel_heat3d_tiled(int tsteps, int n,
             }
         }
 
-        /* Sweep 2: B -> A */
         #pragma omp parallel for collapse(2) schedule(static)
         for (int ii = 1; ii < n-1; ii += TILE_I) {
             for (int jj = 1; jj < n-1; jj += TILE_J) {
@@ -208,9 +208,8 @@ static void kernel_heat3d_tiled(int tsteps, int n,
 }
 
 /* ------------------------------------------------------------------ */
-/*  Strategy 5: SIMD vectorization                                    */
-/*  Explicit omp simd on the k-loop (unit stride, no dependency)      */
-/*  collapse(2) for thread-level parallelism on i,j                   */
+/*  Strategy 5: SIMD                                                  */
+/*  #pragma omp simd on k-loop + collapse(2) thread-parallel on i,j   */
 /* ------------------------------------------------------------------ */
 
 static void kernel_heat3d_simd(int tsteps, int n,
@@ -236,9 +235,8 @@ static void kernel_heat3d_simd(int tsteps, int n,
 }
 
 /* ------------------------------------------------------------------ */
-/*  Strategy 6: Collapsed loops                                       */
-/*  collapse(3) exposes maximum parallelism for small n               */
-/*  Trade-off: may break SIMD on k and cause false sharing            */
+/*  Strategy 6: Collapsed                                             */
+/*  collapse(3) exposes maximum parallelism; may inhibit k-SIMD       */
 /* ------------------------------------------------------------------ */
 
 static void kernel_heat3d_collapsed(int tsteps, int n,
@@ -260,35 +258,60 @@ static void kernel_heat3d_collapsed(int tsteps, int n,
 }
 
 /* ------------------------------------------------------------------ */
-/*  Strategy 7: Red-Black Gauss-Seidel                                */
-/*  In-place update, no double buffer needed during iteration.        */
-/*  Red phase: points where (i+j+k)%2==0                             */
-/*  Black phase: points where (i+j+k)%2==1                           */
+/*  Red-Black Gauss-Seidel                                            */
+/*                                                                    */
+/*  In-place update; no double buffer needed during iteration.        */
+/*  Red phase:   points where (i+j+k) % 2 == 0                        */
+/*  Black phase: points where (i+j+k) % 2 == 1                        */
 /*  Stride-2 k-loop avoids branch inside inner loop.                  */
 /*  Runs 2*tsteps sweeps to match Jacobi FLOP count.                  */
-/*  NOTE: different numerical trajectory than Jacobi; same steady     */
-/*  state. Verification uses relaxed tolerance.                       */
+/*                                                                    */
+/*  In a 7-point stencil, red cells have only black neighbors and     */
+/*  vice versa, so within a color phase updates are race-free and     */
+/*  the parallel version matches the sequential red-black reference   */
+/*  within strict tolerance.                                          */
 /* ------------------------------------------------------------------ */
 
+/* Sequential red-black reference (not parallelized; ground truth) */
+static void kernel_heat3d_redblack_seq(int tsteps, int n,
+                                       double* restrict A) {
+    int total_iters = 2 * tsteps;
+    for (int t = 0; t < total_iters; t++) {
+        /* Red phase: (i+j+k) % 2 == 0 */
+        for (int i = 1; i < n-1; i++) {
+            for (int j = 1; j < n-1; j++) {
+                int k0 = 1 + ((i + j + 1) & 1);
+                for (int k = k0; k < n-1; k += 2)
+                    A[IDX3(i,j,k,n,n)] = stencil_7pt(A, i, j, k, n);
+            }
+        }
+        /* Black phase: (i+j+k) % 2 == 1 */
+        for (int i = 1; i < n-1; i++) {
+            for (int j = 1; j < n-1; j++) {
+                int k0 = 1 + ((i + j) & 1);
+                for (int k = k0; k < n-1; k += 2)
+                    A[IDX3(i,j,k,n,n)] = stencil_7pt(A, i, j, k, n);
+            }
+        }
+    }
+}
+
+/* Strategy 7: parallel red-black (verified against sequential red-black) */
 static void kernel_heat3d_red_black(int tsteps, int n,
                                     double* restrict A,
                                     double* restrict B) {
-    /* 2*tsteps iterations to match Jacobi FLOP count */
     int total_iters = 2 * tsteps;
 
     for (int t = 0; t < total_iters; t++) {
-        /* Red phase: (i+j+k) % 2 == 0 */
         #pragma omp parallel for collapse(2) schedule(static)
         for (int i = 1; i < n-1; i++) {
             for (int j = 1; j < n-1; j++) {
-                /* Compute k_start so (i+j+k_start)%2 == 0 */
                 int k0 = 1 + ((i + j + 1) & 1);
                 for (int k = k0; k < n-1; k += 2)
                     A[IDX3(i,j,k,n,n)] = stencil_7pt(A, i, j, k, n);
             }
         }
 
-        /* Black phase: (i+j+k) % 2 == 1 */
         #pragma omp parallel for collapse(2) schedule(static)
         for (int i = 1; i < n-1; i++) {
             for (int j = 1; j < n-1; j++) {
@@ -299,7 +322,7 @@ static void kernel_heat3d_red_black(int tsteps, int n,
         }
     }
 
-    /* Copy final state to B for interface consistency */
+    /* Keep B in sync with A for interface consistency with driver */
     size_t sz = (size_t)n * n * n * sizeof(double);
     memcpy(B, A, sz);
 }
@@ -310,41 +333,49 @@ static void kernel_heat3d_red_black(int tsteps, int n,
 
 typedef void (*KernelFunc)(int, int, double*, double*);
 
+typedef enum {
+    REF_JACOBI   = 0,   /* verify against sequential Jacobi reference  */
+    REF_REDBLACK = 1    /* verify against sequential red-black ref.    */
+} RefKind;
+
 typedef struct {
     const char* name;
     KernelFunc  func;
-    int         relaxed_verify;  /* 1 = use relaxed tolerance */
+    RefKind     ref;
 } Strategy;
 
 static const Strategy STRATEGIES[] = {
-    {"sequential",       kernel_heat3d_sequential,       0},
-    {"threads_static",   kernel_heat3d_threads_static,   0},
-    {"threads_dynamic",  kernel_heat3d_threads_dynamic,  0},
-    {"tiled",            kernel_heat3d_tiled,             0},
-    {"simd",             kernel_heat3d_simd,              0},
-    {"collapsed",        kernel_heat3d_collapsed,         0},
-    {"red_black",        kernel_heat3d_red_black,         1}
+    {"sequential",      kernel_heat3d_sequential,      REF_JACOBI},
+    {"threads_static",  kernel_heat3d_threads_static,  REF_JACOBI},
+    {"threads_dynamic", kernel_heat3d_threads_dynamic, REF_JACOBI},
+    {"tiled",           kernel_heat3d_tiled,           REF_JACOBI},
+    {"simd",            kernel_heat3d_simd,            REF_JACOBI},
+    {"collapsed",       kernel_heat3d_collapsed,       REF_JACOBI},
+    {"red_black",       kernel_heat3d_red_black,       REF_REDBLACK}
 };
 
 static const int NUM_STRATEGIES = sizeof(STRATEGIES) / sizeof(STRATEGIES[0]);
 
-/* Relaxed tolerance for algorithms with different numerical paths */
-#define VERIFY_TOLERANCE_RELAXED 1.0
+/* Returns 1 if the strategy matching `name` should run given CLI arg */
+static int strategy_selected(const char* requested, const char* name) {
+    if (!requested || strcmp(requested, "all") == 0) return 1;
+    return strstr(requested, name) != NULL;
+}
 
 /* ------------------------------------------------------------------ */
 /*  CLI                                                               */
 /* ------------------------------------------------------------------ */
 
 static void print_usage(const char* prog) {
-    fprintf(stderr,
-        "Usage: %s [options]\n"
-        "  --dataset SIZE     MINI, SMALL, MEDIUM, LARGE, EXTRALARGE (default: LARGE)\n"
-        "  --iterations N     Timed iterations (default: 10)\n"
-        "  --warmup N         Warmup iterations (default: 3)\n"
-        "  --threads N        OpenMP thread count (default: all)\n"
-        "  --output csv       Export results to CSV\n"
-        "  --strategies LIST  Comma-separated or 'all' (default: all)\n"
-        "  --help             Show this help\n", prog);
+    printf("Usage: %s [options]\n", prog);
+    printf("Options:\n");
+    printf("  --dataset SIZE     MINI, SMALL, MEDIUM, LARGE, EXTRALARGE (default: LARGE)\n");
+    printf("  --iterations N     Timed iterations (default: 10)\n");
+    printf("  --warmup N         Warmup iterations (default: 3)\n");
+    printf("  --threads N        OpenMP thread count (default: all)\n");
+    printf("  --output csv       Export results to CSV\n");
+    printf("  --strategies LIST  Comma-separated or 'all' (default: all)\n");
+    printf("  --help             Show this help\n");
 }
 
 /* ------------------------------------------------------------------ */
@@ -352,7 +383,6 @@ static void print_usage(const char* prog) {
 /* ------------------------------------------------------------------ */
 
 int main(int argc, char* argv[]) {
-    /* Defaults */
     DatasetSize dataset_size = DATASET_LARGE;
     int iterations = 10;
     int warmup     = 3;
@@ -360,7 +390,6 @@ int main(int argc, char* argv[]) {
     int output_csv = 0;
     char* strategies_arg = NULL;
 
-    /* Parse arguments */
     static struct option long_options[] = {
         {"dataset",    required_argument, 0, 'd'},
         {"iterations", required_argument, 0, 'i'},
@@ -393,11 +422,9 @@ int main(int argc, char* argv[]) {
         }
     }
 
-    /* OpenMP setup */
     setup_openmp_env();
     omp_set_num_threads(threads);
 
-    /* Dataset parameters */
     const DatasetHeat3D* ds = &DATASETS[dataset_size];
     int n      = ds->n;
     int tsteps = ds->tsteps;
@@ -410,18 +437,38 @@ int main(int argc, char* argv[]) {
            DATASET_NAMES[dataset_size], n, tsteps);
     printf("Threads: %d | Iterations: %d | Warmup: %d\n",
            threads, iterations, warmup);
-    printf("FLOPS: %.2e | Memory: %.1f MB (per array)\n\n",
+    printf("FLOPS: %.2e | Memory: %.1f MB (per array)\n",
            flops, array_bytes / (1024.0 * 1024.0));
+    printf("NOTE: memory-bound, AI ~0.2-0.8 FLOP/byte (cache-dependent)\n\n");
 
     /* Allocate arrays (flat 1D, cache-aligned) */
-    double* A     = ALLOC_3D(double, n, n, n);
-    double* B     = ALLOC_3D(double, n, n, n);
-    double* A_ref = ALLOC_3D(double, n, n, n);
+    double* A        = ALLOC_3D(double, n, n, n);
+    double* B        = ALLOC_3D(double, n, n, n);
+    double* A_jacobi = ALLOC_3D(double, n, n, n);
+    double* A_rb     = NULL;
 
-    /* Compute sequential reference */
+    /* Decide whether the red-black reference is needed */
+    int need_rb_ref = 0;
+    for (int s = 0; s < NUM_STRATEGIES; s++) {
+        if (STRATEGIES[s].ref == REF_REDBLACK &&
+            strategy_selected(strategies_arg, STRATEGIES[s].name)) {
+            need_rb_ref = 1;
+            break;
+        }
+    }
+
+    /* Jacobi reference */
     init_array(n, A, B);
     kernel_heat3d_sequential(tsteps, n, A, B);
-    memcpy(A_ref, A, array_bytes);
+    memcpy(A_jacobi, A, array_bytes);
+
+    /* Red-black reference (only if used) */
+    if (need_rb_ref) {
+        A_rb = ALLOC_3D(double, n, n, n);
+        init_array(n, A, B);
+        kernel_heat3d_redblack_seq(tsteps, n, A);
+        memcpy(A_rb, A, array_bytes);
+    }
 
     /* Metrics collector */
     MetricsCollector mc;
@@ -430,11 +477,8 @@ int main(int argc, char* argv[]) {
 
     /* Run strategies */
     for (int s = 0; s < NUM_STRATEGIES; s++) {
-        /* Filter if specific strategies requested */
-        if (strategies_arg && strcmp(strategies_arg, "all") != 0) {
-            if (strstr(strategies_arg, STRATEGIES[s].name) == NULL)
-                continue;
-        }
+        if (!strategy_selected(strategies_arg, STRATEGIES[s].name))
+            continue;
 
         TimingData timing;
         timing_init(&timing);
@@ -459,14 +503,11 @@ int main(int argc, char* argv[]) {
         /* Verification run */
         init_array(n, A, B);
         STRATEGIES[s].func(tsteps, n, A, B);
-        double max_err = verify_result(n, A_ref, A);
 
-        double tol = STRATEGIES[s].relaxed_verify
-                   ? VERIFY_TOLERANCE_RELAXED
-                   : VERIFY_TOLERANCE;
-        int verified = (max_err < tol);
+        const double* ref = (STRATEGIES[s].ref == REF_REDBLACK) ? A_rb : A_jacobi;
+        double max_err = verify_result(n, ref, A);
+        int verified = (max_err < VERIFY_TOLERANCE);
 
-        /* Record and print */
         metrics_record(&mc, STRATEGIES[s].name, &timing, flops,
                        verified, max_err);
         metrics_print_result(&mc.results[mc.num_results - 1]);
@@ -486,7 +527,8 @@ int main(int argc, char* argv[]) {
     /* Cleanup */
     FREE_ARRAY(A);
     FREE_ARRAY(B);
-    FREE_ARRAY(A_ref);
+    FREE_ARRAY(A_jacobi);
+    if (A_rb) FREE_ARRAY(A_rb);
 
     return 0;
 }
