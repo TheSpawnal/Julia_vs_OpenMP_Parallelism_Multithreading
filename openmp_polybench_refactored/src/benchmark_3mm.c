@@ -4,6 +4,40 @@
  * E = A*B, F = C*D, G = E*F
  */
 
+
+/*
+ * FIX PATCH — benchmark_3mm.c
+ *
+ * Drop-in replacement for:
+ *   - kernel_3mm_tasks   (FAIL max_error 0.07-0.12 at threads >= 4)
+ *
+ * APPLICATION:
+ *   In src/benchmark_3mm.c, locate `static void kernel_3mm_tasks(...)` and
+ *   replace its entire body with the block below. The signature and the
+ *   STRATEGIES[] table are unchanged.
+ *
+ * DEPENDENCIES ALREADY IN THE FILE:
+ *   #include "benchmark_common.h"  (provides IDX2, MIN, MAX)
+ *   #include <omp.h>               (OpenMP pragmas)
+ *
+ * No new header is required.
+ */
+ 
+/* ======================================================================== */
+/* FIX: kernel_3mm_tasks                                                     */
+/*                                                                           */
+/* Root cause: the original wrapped each of E and F in an outer             */
+/*   #pragma omp task { for ... #pragma omp task ... }                       */
+/* The outer task completes as soon as its body finishes spawning children. */
+/* The subsequent taskwait therefore only waited for the outer tasks, NOT   */
+/* for their grandchildren. G was computed while E and F were still being   */
+/* populated. At low thread counts, depth-first scheduling masked the race; */
+/* at >=4 threads, work-stealing exposed it.                                 */
+/*                                                                           */
+/* Fix: flatten. Spawn E-chunk and F-chunk tasks directly under the         */
+/* single region, so taskwait waits for the actual work-doing tasks.        */
+/* ======================================================================== */
+
 #include "benchmark_common.h"
 #include "metrics.h"
 #include <getopt.h>
@@ -222,66 +256,131 @@ static void kernel_3mm_tiled(int ni, int nj, int nk, int nl, int nm,
 }
 
 // tasks
-static void kernel_3mm_tasks(int ni, int nj, int nk, int nl, int nm,
-                            double* A, double* B, double* C, double* D,
-                            double* E, double* F, double* G) {
-    int chunk = MAX(ni / (omp_get_max_threads() * 4), 1);
+
+// static void kernel_3mm_tasks(int ni, int nj, int nk, int nl, int nm,
+//                             double* A, double* B, double* C, double* D,
+//                             double* E, double* F, double* G) {
+//     int chunk = MAX(ni / (omp_get_max_threads() * 4), 1);
     
+//     #pragma omp parallel
+//     {
+//         #pragma omp single
+//         {
+//             // E = A * B and F = C * D can be computed in parallel
+//             #pragma omp task
+//             {
+//                 for (int ii = 0; ii < ni; ii += chunk) {
+//                     #pragma omp task firstprivate(ii)
+//                     {
+//                         int i_end = MIN(ii + chunk, ni);
+//                         for (int i = ii; i < i_end; i++) {
+//                             for (int j = 0; j < nj; j++) {
+//                                 E[IDX2(i, j, nj)] = 0.0;
+//                                 for (int k = 0; k < nk; k++)
+//                                     E[IDX2(i, j, nj)] += A[IDX2(i, k, nk)] * B[IDX2(k, j, nj)];
+//                             }
+//                         }
+//                     }
+//                 }
+//             }
+            
+//             #pragma omp task
+//             {
+//                 for (int ii = 0; ii < nj; ii += chunk) {
+//                     #pragma omp task firstprivate(ii)
+//                     {
+//                         int i_end = MIN(ii + chunk, nj);
+//                         for (int i = ii; i < i_end; i++) {
+//                             for (int j = 0; j < nl; j++) {
+//                                 F[IDX2(i, j, nl)] = 0.0;
+//                                 for (int k = 0; k < nm; k++)
+//                                     F[IDX2(i, j, nl)] += C[IDX2(i, k, nm)] * D[IDX2(k, j, nl)];
+//                             }
+//                         }
+//                     }
+//                 }
+//             }
+            
+//             #pragma omp taskwait
+            
+//             // G = E * F
+//             for (int ii = 0; ii < ni; ii += chunk) {
+//                 #pragma omp task firstprivate(ii)
+//                 {
+//                     int i_end = MIN(ii + chunk, ni);
+//                     for (int i = ii; i < i_end; i++) {
+//                         for (int j = 0; j < nl; j++) {
+//                             G[IDX2(i, j, nl)] = 0.0;
+//                             for (int k = 0; k < nj; k++)
+//                                 G[IDX2(i, j, nl)] += E[IDX2(i, k, nj)] * F[IDX2(k, j, nl)];
+//                         }
+//                     }
+//                 }
+//             }
+//         }
+//     }
+// }
+
+static void kernel_3mm_tasks(int ni, int nj, int nk, int nl, int nm,
+                             double* A, double* B, double* C, double* D,
+                             double* E, double* F, double* G) {
+    const int chunk = MAX(ni / (omp_get_max_threads() * 4), 1);
+ 
     #pragma omp parallel
     {
         #pragma omp single
         {
-            // E = A * B and F = C * D can be computed in parallel
-            #pragma omp task
-            {
-                for (int ii = 0; ii < ni; ii += chunk) {
-                    #pragma omp task firstprivate(ii)
-                    {
-                        int i_end = MIN(ii + chunk, ni);
-                        for (int i = ii; i < i_end; i++) {
-                            for (int j = 0; j < nj; j++) {
-                                E[IDX2(i, j, nj)] = 0.0;
-                                for (int k = 0; k < nk; k++)
-                                    E[IDX2(i, j, nj)] += A[IDX2(i, k, nk)] * B[IDX2(k, j, nj)];
-                            }
-                        }
-                    }
-                }
-            }
-            
-            #pragma omp task
-            {
-                for (int ii = 0; ii < nj; ii += chunk) {
-                    #pragma omp task firstprivate(ii)
-                    {
-                        int i_end = MIN(ii + chunk, nj);
-                        for (int i = ii; i < i_end; i++) {
-                            for (int j = 0; j < nl; j++) {
-                                F[IDX2(i, j, nl)] = 0.0;
-                                for (int k = 0; k < nm; k++)
-                                    F[IDX2(i, j, nl)] += C[IDX2(i, k, nm)] * D[IDX2(k, j, nl)];
-                            }
-                        }
-                    }
-                }
-            }
-            
-            #pragma omp taskwait
-            
-            // G = E * F
+            /* Phase 1a: E = A * B, row-chunked, tasks independent */
             for (int ii = 0; ii < ni; ii += chunk) {
                 #pragma omp task firstprivate(ii)
                 {
-                    int i_end = MIN(ii + chunk, ni);
+                    const int i_end = MIN(ii + chunk, ni);
                     for (int i = ii; i < i_end; i++) {
-                        for (int j = 0; j < nl; j++) {
-                            G[IDX2(i, j, nl)] = 0.0;
-                            for (int k = 0; k < nj; k++)
-                                G[IDX2(i, j, nl)] += E[IDX2(i, k, nj)] * F[IDX2(k, j, nl)];
+                        for (int j = 0; j < nj; j++) {
+                            double sum = 0.0;
+                            for (int k = 0; k < nk; k++)
+                                sum += A[IDX2(i, k, nk)] * B[IDX2(k, j, nj)];
+                            E[IDX2(i, j, nj)] = sum;
                         }
                     }
                 }
             }
+ 
+            /* Phase 1b: F = C * D, row-chunked, independent of E */
+            for (int ii = 0; ii < nj; ii += chunk) {
+                #pragma omp task firstprivate(ii)
+                {
+                    const int i_end = MIN(ii + chunk, nj);
+                    for (int i = ii; i < i_end; i++) {
+                        for (int j = 0; j < nl; j++) {
+                            double sum = 0.0;
+                            for (int k = 0; k < nm; k++)
+                                sum += C[IDX2(i, k, nm)] * D[IDX2(k, j, nl)];
+                            F[IDX2(i, j, nl)] = sum;
+                        }
+                    }
+                }
+            }
+ 
+            /* Block on completion of ALL phase-1 tasks (direct children). */
+            #pragma omp taskwait
+ 
+            /* Phase 2: G = E * F */
+            for (int ii = 0; ii < ni; ii += chunk) {
+                #pragma omp task firstprivate(ii)
+                {
+                    const int i_end = MIN(ii + chunk, ni);
+                    for (int i = ii; i < i_end; i++) {
+                        for (int j = 0; j < nl; j++) {
+                            double sum = 0.0;
+                            for (int k = 0; k < nj; k++)
+                                sum += E[IDX2(i, k, nj)] * F[IDX2(k, j, nl)];
+                            G[IDX2(i, j, nl)] = sum;
+                        }
+                    }
+                }
+            }
+            /* Implicit barrier at end of single region waits for G tasks. */
         }
     }
 }
