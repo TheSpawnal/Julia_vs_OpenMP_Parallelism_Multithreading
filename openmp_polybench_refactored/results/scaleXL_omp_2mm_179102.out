@@ -1,0 +1,81 @@
+=== 2mm XL t=1 host=node054 ===
+2MM Benchmark
+Dataset: EXTRALARGE (NI=1600, NJ=1800, NK=2200, NL=2400)
+Threads: 1 | Iterations: 5 | Warmup: 2
+FLOPS: 2.65e+10
+
+Strategy             Threads    Parallel Min(ms)      Median(ms)   GFLOP/s    Speedup    Eff(%)     Verified
+--------------------------------------------------------------------------------
+sequential           1          false    38163.712    38446.991    0.69       1.00       -          PASS
+threads_static       1          true     38187.442    38531.425    0.69       1.00       99.9       PASS
+threads_dynamic      1          true     38462.321    38511.337    0.69       0.99       99.2       PASS
+tiled                1          true     9364.978     9373.773     2.83       4.08       407.5      PASS
+simd                 1          false    33809.622    33863.515    0.78       1.13       -          PASS
+tasks                1          true     38442.773    38479.087    0.69       0.99       99.3       PASS
+collapsed            1          true     38443.024    38468.384    0.69       0.99       99.3       PASS
+CSV exported: results/2mm_EXTRALARGE_20260421_053706.csv
+=== 2mm XL t=2 host=node054 ===
+2MM Benchmark
+Dataset: EXTRALARGE (NI=1600, NJ=1800, NK=2200, NL=2400)
+Threads: 2 | Iterations: 5 | Warmup: 2
+FLOPS: 2.65e+10
+
+Strategy             Threads    Parallel Min(ms)      Median(ms)   GFLOP/s    Speedup    Eff(%)     Verified
+--------------------------------------------------------------------------------
+sequential           2          false    38243.412    38449.798    0.69       1.00       -          PASS
+threads_static       2          true     18641.026    18771.052    1.42       2.05       102.6      PASS
+threads_dynamic      2          true     18270.581    18624.187    1.45       2.09       104.7      PASS
+tiled                2          true     4808.032     4853.603     5.51       7.95       397.7      PASS
+simd                 2          false    33456.272    33977.702    0.79       1.14       -          PASS
+tasks                2          true     18762.096    18762.521    1.41       2.04       101.9      PASS
+collapsed            2          true     18243.127    18617.925    1.45       2.10       104.8      PASS
+CSV exported: results/2mm_EXTRALARGE_20260421_055808.csv
+=== 2mm XL t=4 host=node054 ===
+2MM Benchmark
+Dataset: EXTRALARGE (NI=1600, NJ=1800, NK=2200, NL=2400)
+Threads: 4 | Iterations: 5 | Warmup: 2
+FLOPS: 2.65e+10
+
+Strategy             Threads    Parallel Min(ms)      Median(ms)   GFLOP/s    Speedup    Eff(%)     Verified
+--------------------------------------------------------------------------------
+sequential           4          false    38178.843    38548.469    0.69       1.00       -          PASS
+threads_static       4          true     9557.004     9557.247     2.77       3.99       99.9       PASS
+threads_dynamic      4          true     9559.139     9560.221     2.77       3.99       99.8       PASS
+tiled                4          true     2672.802     2673.175     9.91       14.28      357.1      PASS
+simd                 4          false    33870.977    34770.730    0.78       1.13       -          PASS
+tasks                4          true     9183.002     9274.445     2.89       4.16       103.9      PASS
+collapsed            4          true     9285.787     9286.600     2.85       4.11       102.8      PASS
+CSV exported: results/2mm_EXTRALARGE_20260421_061406.csv
+=== 2mm XL t=8 host=node054 ===
+2MM Benchmark
+Dataset: EXTRALARGE (NI=1600, NJ=1800, NK=2200, NL=2400)
+Threads: 8 | Iterations: 5 | Warmup: 2
+FLOPS: 2.65e+10
+
+Strategy             Threads    Parallel Min(ms)      Median(ms)   GFLOP/s    Speedup    Eff(%)     Verified
+--------------------------------------------------------------------------------
+sequential           8          false    38244.347    38446.404    0.69       1.00       -          PASS
+threads_static       8          true     5103.393     5103.467     5.19       7.49       93.7       PASS
+threads_dynamic      8          true     5297.489     5298.203     5.00       7.22       90.2       PASS
+tiled                8          true     1422.996     1423.183     18.62      26.88      335.9      PASS
+simd                 8          false    33832.468    35734.787    0.78       1.13       -          PASS
+tasks                8          true     5101.558     5104.000     5.19       7.50       93.7       PASS
+collapsed            8          true     5002.232     5108.596     5.30       7.65       95.6       PASS
+CSV exported: results/2mm_EXTRALARGE_20260421_062739.csv
+=== 2mm XL t=16 host=node054 ===
+2MM Benchmark
+Dataset: EXTRALARGE (NI=1600, NJ=1800, NK=2200, NL=2400)
+Threads: 16 | Iterations: 5 | Warmup: 2
+FLOPS: 2.65e+10
+
+Strategy             Threads    Parallel Min(ms)      Median(ms)   GFLOP/s    Speedup    Eff(%)     Verified
+--------------------------------------------------------------------------------
+sequential           16         false    38255.267    38448.345    0.69       1.00       -          PASS
+threads_static       16         true     2772.329     2776.147     9.56       13.80      86.2       PASS
+threads_dynamic      16         true     2721.827     2722.237     9.74       14.05      87.8       PASS
+tiled                16         true     752.597      752.766      35.21      50.83      317.7      PASS
+simd                 16         false    33809.125    34367.356    0.78       1.13       -          PASS
+tasks                16         true     2714.757     2715.425     9.76       14.09      88.1       PASS
+collapsed            16         true     2715.456     2715.865     9.76       14.09      88.0       PASS
+CSV exported: results/2mm_EXTRALARGE_20260421_063943.csv
+=== 2mm done host=node054 t=2026-04-21T06:39:43+02:00 ===

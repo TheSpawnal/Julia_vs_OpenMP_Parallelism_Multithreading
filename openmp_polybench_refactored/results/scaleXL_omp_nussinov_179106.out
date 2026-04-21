@@ -1,0 +1,71 @@
+=== nussinov XL t=1 host=node056 ===
+Nussinov Benchmark (RNA Folding)
+Dataset: EXTRALARGE (N=5500)
+Threads: 1 | FLOPS: 2.77e+10
+NOTE: Dependency-limited benchmark, expect modest speedups
+
+Strategy             Threads    Parallel Min(ms)      Median(ms)   GFLOP/s    Speedup    Eff(%)     Verified
+--------------------------------------------------------------------------------
+sequential           1          false    47998.425    48355.560    0.58       1.00       -          PASS
+wavefront            1          true     60122.883    60540.147    0.46       0.80       79.8       PASS
+tiled                1          true     29089.255    29090.490    0.95       1.65       165.0      PASS
+tasks                1          true     59274.891    59781.118    0.47       0.81       81.0       PASS
+simd                 1          false    44811.892    45212.391    0.62       1.07       -          PASS
+CSV exported: results/nussinov_EXTRALARGE_20260421_054129.csv
+=== nussinov XL t=2 host=node056 ===
+Nussinov Benchmark (RNA Folding)
+Dataset: EXTRALARGE (N=5500)
+Threads: 2 | FLOPS: 2.77e+10
+NOTE: Dependency-limited benchmark, expect modest speedups
+
+Strategy             Threads    Parallel Min(ms)      Median(ms)   GFLOP/s    Speedup    Eff(%)     Verified
+--------------------------------------------------------------------------------
+sequential           2          false    48280.948    48330.473    0.57       1.00       -          PASS
+wavefront            2          true     31363.899    31370.816    0.88       1.54       77.0       PASS
+tiled                2          true     15428.199    15429.321    1.80       3.13       156.5      PASS
+tasks                2          true     34081.200    34516.243    0.81       1.42       70.8       PASS
+simd                 2          false    45031.374    45180.866    0.62       1.07       -          PASS
+CSV exported: results/nussinov_EXTRALARGE_20260421_060541.csv
+=== nussinov XL t=4 host=node056 ===
+Nussinov Benchmark (RNA Folding)
+Dataset: EXTRALARGE (N=5500)
+Threads: 4 | FLOPS: 2.77e+10
+NOTE: Dependency-limited benchmark, expect modest speedups
+
+Strategy             Threads    Parallel Min(ms)      Median(ms)   GFLOP/s    Speedup    Eff(%)     Verified
+--------------------------------------------------------------------------------
+sequential           4          false    48443.789    48530.464    0.57       1.00       -          PASS
+wavefront            4          true     16917.811    16921.195    1.64       2.86       71.6       PASS
+tiled                4          true     8653.252     8653.809     3.20       5.60       140.0      PASS
+tasks                4          true     21302.806    21654.386    1.30       2.27       56.9       PASS
+simd                 4          false    45363.684    45365.841    0.61       1.07       -          PASS
+CSV exported: results/nussinov_EXTRALARGE_20260421_062527.csv
+=== nussinov XL t=8 host=node056 ===
+Nussinov Benchmark (RNA Folding)
+Dataset: EXTRALARGE (N=5500)
+Threads: 8 | FLOPS: 2.77e+10
+NOTE: Dependency-limited benchmark, expect modest speedups
+
+Strategy             Threads    Parallel Min(ms)      Median(ms)   GFLOP/s    Speedup    Eff(%)     Verified
+--------------------------------------------------------------------------------
+sequential           8          false    48318.732    48322.218    0.57       1.00       -          PASS
+wavefront            8          true     9132.749     9133.684     3.04       5.29       66.1       PASS
+tiled                8          true     5025.846     5026.257     5.52       9.61       120.2      PASS
+tasks                8          true     15719.351    15762.392    1.76       3.07       38.4       PASS
+simd                 8          false    44872.434    45166.412    0.62       1.08       -          PASS
+CSV exported: results/nussinov_EXTRALARGE_20260421_064300.csv
+=== nussinov XL t=16 host=node056 ===
+Nussinov Benchmark (RNA Folding)
+Dataset: EXTRALARGE (N=5500)
+Threads: 16 | FLOPS: 2.77e+10
+NOTE: Dependency-limited benchmark, expect modest speedups
+
+Strategy             Threads    Parallel Min(ms)      Median(ms)   GFLOP/s    Speedup    Eff(%)     Verified
+--------------------------------------------------------------------------------
+sequential           16         false    48027.252    48424.124    0.58       1.00       -          PASS
+wavefront            16         true     5854.096     5866.094     4.74       8.20       51.3       PASS
+tiled                16         true     2954.756     2955.490     9.38       16.25      101.6      PASS
+tasks                16         true     15030.353    17817.988    1.84       3.20       20.0       PASS
+simd                 16         false    44819.494    45211.805    0.62       1.07       -          PASS
+CSV exported: results/nussinov_EXTRALARGE_20260421_065959.csv
+=== nussinov done host=node056 t=2026-04-21T06:59:59+02:00 ===

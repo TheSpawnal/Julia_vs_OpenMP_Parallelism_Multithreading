@@ -1,0 +1,66 @@
+=== correlation XL t=1 host=node068 ===
+Correlation Benchmark
+Dataset: EXTRALARGE (M=2600, N=3000)
+Threads: 1 | FLOPS: 2.34e+10
+
+Strategy             Threads    Parallel Min(ms)      Median(ms)   GFLOP/s    Speedup    Eff(%)     Verified
+--------------------------------------------------------------------------------
+sequential           1          false    19149.278    19160.012    1.22       1.00       -          PASS
+threads_static       1          true     19153.509    19156.653    1.22       1.00       100.0      PASS
+threads_dynamic      1          true     19119.080    19144.378    1.23       1.00       100.2      PASS
+tiled                1          true     10999.316    10999.431    2.13       1.74       174.1      PASS
+tasks                1          true     11907.476    11913.621    1.97       1.61       160.8      PASS
+CSV exported: results/correlation_EXTRALARGE_20260421_051601.csv
+=== correlation XL t=2 host=node068 ===
+Correlation Benchmark
+Dataset: EXTRALARGE (M=2600, N=3000)
+Threads: 2 | FLOPS: 2.34e+10
+
+Strategy             Threads    Parallel Min(ms)      Median(ms)   GFLOP/s    Speedup    Eff(%)     Verified
+--------------------------------------------------------------------------------
+sequential           2          false    19129.643    19161.063    1.22       1.00       -          PASS
+threads_static       2          true     14914.642    14936.288    1.57       1.28       64.1       PASS
+threads_dynamic      2          true     9697.642     9899.145     2.42       1.97       98.6       PASS
+tiled                2          true     5674.876     5707.343     4.13       3.37       168.5      PASS
+tasks                2          true     5977.215     6132.941     3.92       3.20       160.0      PASS
+CSV exported: results/correlation_EXTRALARGE_20260421_052346.csv
+=== correlation XL t=4 host=node068 ===
+Correlation Benchmark
+Dataset: EXTRALARGE (M=2600, N=3000)
+Threads: 4 | FLOPS: 2.34e+10
+
+Strategy             Threads    Parallel Min(ms)      Median(ms)   GFLOP/s    Speedup    Eff(%)     Verified
+--------------------------------------------------------------------------------
+sequential           4          false    19106.107    19116.155    1.23       1.00       -          PASS
+threads_static       4          true     9241.854     9341.009     2.54       2.07       51.7       PASS
+threads_dynamic      4          true     5207.426     5207.769     4.50       3.67       91.7       PASS
+tiled                4          true     3129.142     3129.261     7.49       6.11       152.6      PASS
+tasks                4          true     3280.757     3314.228     7.14       5.82       145.6      PASS
+CSV exported: results/correlation_EXTRALARGE_20260421_052929.csv
+=== correlation XL t=8 host=node068 ===
+Correlation Benchmark
+Dataset: EXTRALARGE (M=2600, N=3000)
+Threads: 8 | FLOPS: 2.34e+10
+
+Strategy             Threads    Parallel Min(ms)      Median(ms)   GFLOP/s    Speedup    Eff(%)     Verified
+--------------------------------------------------------------------------------
+sequential           8          false    19114.006    19119.095    1.23       1.00       -          PASS
+threads_static       8          true     5505.671     5509.902     4.26       3.47       43.4       PASS
+threads_dynamic      8          true     2892.732     2894.584     8.10       6.61       82.6       PASS
+tiled                8          true     1688.501     1688.593     13.88      11.32      141.5      PASS
+tasks                8          true     1830.572     1841.617     12.80      10.44      130.5      PASS
+CSV exported: results/correlation_EXTRALARGE_20260421_053358.csv
+=== correlation XL t=16 host=node068 ===
+Correlation Benchmark
+Dataset: EXTRALARGE (M=2600, N=3000)
+Threads: 16 | FLOPS: 2.34e+10
+
+Strategy             Threads    Parallel Min(ms)      Median(ms)   GFLOP/s    Speedup    Eff(%)     Verified
+--------------------------------------------------------------------------------
+sequential           16         false    19109.688    19126.000    1.23       1.00       -          PASS
+threads_static       16         true     2890.791     2898.678     8.11       6.61       41.3       PASS
+threads_dynamic      16         true     1479.422     1483.068     15.84      12.92      80.7       PASS
+tiled                16         true     850.213      850.464      27.56      22.48      140.5      PASS
+tasks                16         true     988.852      1002.463     23.70      19.33      120.8      PASS
+CSV exported: results/correlation_EXTRALARGE_20260421_053741.csv
+=== correlation done host=node068 t=2026-04-21T05:37:41+02:00 ===

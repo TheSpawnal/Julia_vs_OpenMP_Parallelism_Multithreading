@@ -1,0 +1,6 @@
+benchmark,dataset,strategy,threads,is_parallel,min_ms,median_ms,mean_ms,std_ms,gflops,speedup,efficiency_pct,verified,max_error,allocations
+cholesky,EXTRALARGE,sequential,8,false,17712.7706,17715.5649,17715.1147,1.7600,1.20,1.00,,PASS,0.00e+00,0
+cholesky,EXTRALARGE,threads_static,8,true,1906.0680,1907.5630,1907.4715,1.1524,11.19,9.29,116.16,PASS,1.26e-11,0
+cholesky,EXTRALARGE,tiled,8,true,1252.6573,1252.8593,1253.0033,0.4759,17.03,14.14,176.75,PASS,1.32e-11,0
+cholesky,EXTRALARGE,simd,8,false,17711.4375,17718.0681,17887.8444,384.1530,1.20,1.00,,PASS,9.70e-10,0
+cholesky,EXTRALARGE,tasks,8,true,1087.9127,1095.0821,1095.6112,5.5739,19.61,16.28,203.52,PASS,1.32e-11,0

@@ -1,0 +1,86 @@
+=== heat3d XL t=1 host=node057 ===
+Heat-3D Benchmark
+Dataset: EXTRALARGE (N=200, TSTEPS=1000)
+Threads: 1 | Iterations: 5 | Warmup: 2
+FLOPS: 2.02e+11 | Memory: 61.0 MB (per array)
+NOTE: memory-bound, AI ~0.2-0.8 FLOP/byte (cache-dependent)
+
+Strategy             Threads    Parallel Min(ms)      Median(ms)   GFLOP/s    Speedup    Eff(%)     Verified
+--------------------------------------------------------------------------------
+sequential           1          false    30050.238    30051.744    6.72       1.00       -          PASS
+threads_static       1          true     31129.852    31131.085    6.48       0.97       96.5       PASS
+threads_dynamic      1          true     29770.443    30032.339    6.78       1.01       100.9      PASS
+tiled                1          true     27850.106    28128.232    7.25       1.08       107.9      PASS
+simd                 1          false    29874.586    29875.254    6.76       1.01       -          PASS
+collapsed            1          true     88978.626    89013.423    2.27       0.34       33.8       PASS
+red_black            1          true     48265.730    48550.280    4.18       0.62       62.3       PASS
+CSV exported: results/heat3d_EXTRALARGE_20260421_054534.csv
+=== heat3d XL t=2 host=node057 ===
+Heat-3D Benchmark
+Dataset: EXTRALARGE (N=200, TSTEPS=1000)
+Threads: 2 | Iterations: 5 | Warmup: 2
+FLOPS: 2.02e+11 | Memory: 61.0 MB (per array)
+NOTE: memory-bound, AI ~0.2-0.8 FLOP/byte (cache-dependent)
+
+Strategy             Threads    Parallel Min(ms)      Median(ms)   GFLOP/s    Speedup    Eff(%)     Verified
+--------------------------------------------------------------------------------
+sequential           2          false    29785.502    29786.002    6.78       1.00       -          PASS
+threads_static       2          true     16299.155    16451.234    12.38      1.83       91.4       PASS
+threads_dynamic      2          true     18725.969    18927.430    10.78      1.59       79.5       PASS
+tiled                2          true     15022.094    15167.171    13.44      1.98       99.1       PASS
+simd                 2          false    15584.458    15798.363    12.95      1.91       -          PASS
+collapsed            2          true     45575.119    46042.793    4.43       0.65       32.7       PASS
+red_black            2          true     24815.223    25177.347    8.13       1.20       60.0       PASS
+CSV exported: results/heat3d_EXTRALARGE_20260421_060907.csv
+=== heat3d XL t=4 host=node057 ===
+Heat-3D Benchmark
+Dataset: EXTRALARGE (N=200, TSTEPS=1000)
+Threads: 4 | Iterations: 5 | Warmup: 2
+FLOPS: 2.02e+11 | Memory: 61.0 MB (per array)
+NOTE: memory-bound, AI ~0.2-0.8 FLOP/byte (cache-dependent)
+
+Strategy             Threads    Parallel Min(ms)      Median(ms)   GFLOP/s    Speedup    Eff(%)     Verified
+--------------------------------------------------------------------------------
+sequential           4          false    29851.675    30132.745    6.76       1.00       -          PASS
+threads_static       4          true     10891.677    11080.920    18.53      2.74       68.5       PASS
+threads_dynamic      4          true     10806.017    11027.762    18.68      2.76       69.1       PASS
+tiled                4          true     11033.104    11034.355    18.29      2.71       67.6       PASS
+simd                 4          false    10506.441    10574.510    19.21      2.84       -          PASS
+collapsed            4          true     25333.085    25356.125    7.97       1.18       29.5       PASS
+red_black            4          true     15579.253    15859.469    12.95      1.92       47.9       PASS
+CSV exported: results/heat3d_EXTRALARGE_20260421_062544.csv
+=== heat3d XL t=8 host=node057 ===
+Heat-3D Benchmark
+Dataset: EXTRALARGE (N=200, TSTEPS=1000)
+Threads: 8 | Iterations: 5 | Warmup: 2
+FLOPS: 2.02e+11 | Memory: 61.0 MB (per array)
+NOTE: memory-bound, AI ~0.2-0.8 FLOP/byte (cache-dependent)
+
+Strategy             Threads    Parallel Min(ms)      Median(ms)   GFLOP/s    Speedup    Eff(%)     Verified
+--------------------------------------------------------------------------------
+sequential           8          false    29785.696    29787.080    6.78       1.00       -          PASS
+threads_static       8          true     9340.765     9348.623     21.61      3.19       39.9       PASS
+threads_dynamic      8          true     8699.796     8700.358     23.20      3.42       42.8       PASS
+tiled                8          true     9434.721     9435.746     21.39      3.16       39.5       PASS
+simd                 8          false    9289.206     9294.125     21.73      3.21       -          PASS
+collapsed            8          true     14252.385    14256.396    14.16      2.09       26.1       PASS
+red_black            8          true     12887.617    12889.080    15.66      2.31       28.9       PASS
+CSV exported: results/heat3d_EXTRALARGE_20260421_063932.csv
+=== heat3d XL t=16 host=node057 ===
+Heat-3D Benchmark
+Dataset: EXTRALARGE (N=200, TSTEPS=1000)
+Threads: 16 | Iterations: 5 | Warmup: 2
+FLOPS: 2.02e+11 | Memory: 61.0 MB (per array)
+NOTE: memory-bound, AI ~0.2-0.8 FLOP/byte (cache-dependent)
+
+Strategy             Threads    Parallel Min(ms)      Median(ms)   GFLOP/s    Speedup    Eff(%)     Verified
+--------------------------------------------------------------------------------
+sequential           16         false    29811.307    30088.308    6.77       1.00       -          PASS
+threads_static       16         true     4811.632     4831.643     41.94      6.20       38.7       PASS
+threads_dynamic      16         true     8546.406     8547.410     23.61      3.49       21.8       PASS
+tiled                16         true     6637.187     6661.577     30.41      4.49       28.1       PASS
+simd                 16         false    7196.152     7199.936     28.05      4.14       -          PASS
+collapsed            16         true     7202.860     7206.360     28.02      4.14       25.9       PASS
+red_black            16         true     6471.559     6475.329     31.19      4.61       28.8       PASS
+CSV exported: results/heat3d_EXTRALARGE_20260421_065032.csv
+=== heat3d done host=node057 t=2026-04-21T06:50:32+02:00 ===

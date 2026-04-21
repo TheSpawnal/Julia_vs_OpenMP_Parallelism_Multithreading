@@ -1,0 +1,6 @@
+benchmark,dataset,strategy,threads,is_parallel,min_ms,median_ms,mean_ms,std_ms,gflops,speedup,efficiency_pct,verified,max_error,allocations
+nussinov,EXTRALARGE,sequential,1,false,47998.4252,48355.5603,48284.7079,160.0447,0.58,1.00,,PASS,0.00e+00,0
+nussinov,EXTRALARGE,wavefront,1,true,60122.8826,60540.1475,60457.2591,186.9435,0.46,0.80,79.83,PASS,0.00e+00,0
+nussinov,EXTRALARGE,tiled,1,true,29089.2545,29090.4896,29091.2190,1.8135,0.95,1.65,165.00,PASS,0.00e+00,0
+nussinov,EXTRALARGE,tasks,1,true,59274.8915,59781.1179,59680.5417,226.7671,0.47,0.81,80.98,PASS,0.00e+00,0
+nussinov,EXTRALARGE,simd,1,false,44811.8915,45212.3905,45132.2573,179.0974,0.62,1.07,,PASS,0.00e+00,0

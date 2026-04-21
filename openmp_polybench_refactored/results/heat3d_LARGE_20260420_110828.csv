@@ -1,8 +1,0 @@
-benchmark,dataset,strategy,threads,is_parallel,min_ms,median_ms,mean_ms,std_ms,gflops,speedup,efficiency_pct,verified,max_error,allocations
-heat3d,LARGE,sequential,4,false,3027.5048,3100.6147,3102.0651,61.2416,7.06,1.00,,PASS,0.00e+00,0
-heat3d,LARGE,threads_static,4,true,1923.3864,1939.9235,1942.6409,14.8859,11.11,1.57,39.35,PASS,0.00e+00,0
-heat3d,LARGE,threads_dynamic,4,true,1865.0267,1867.4306,1873.0469,9.2988,11.45,1.62,40.58,PASS,0.00e+00,0
-heat3d,LARGE,tiled,4,true,1981.8585,1992.0030,1993.5796,11.3333,10.78,1.53,38.19,PASS,0.00e+00,0
-heat3d,LARGE,simd,4,false,1931.0747,1955.4411,1957.4048,18.9029,11.06,1.57,,PASS,0.00e+00,0
-heat3d,LARGE,collapsed,4,true,3933.4468,4139.2186,4099.7313,115.0854,5.43,0.77,19.24,PASS,0.00e+00,0
-heat3d,LARGE,red_black,4,true,2634.2947,2648.6578,2650.9007,16.0317,8.11,1.15,28.73,PASS,0.00e+00,0
