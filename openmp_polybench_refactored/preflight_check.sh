@@ -12,7 +12,7 @@
 
 set -u
 
-PROJECT_DIR="$HOME/openmp_polybench_refactored"
+PROJECT_DIR="$HOME/latest/Julia_vs_OpenMP_Parallelism_Multithreading/openmp_polybench_refactored"
 QUICK=0
 [[ "${1:-}" == "--quick" ]] && QUICK=1
 
