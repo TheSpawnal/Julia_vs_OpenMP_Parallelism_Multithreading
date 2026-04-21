@@ -29,7 +29,7 @@ THREAD_COUNTS="1 2 4 8 16"
 ITERATIONS=10
 WARMUP=3
 
-PROJECT_DIR="$HOME/openmp_polybench_refactored"
+PROJECT_DIR="$HOME/latest/Julia_vs_OpenMP_Parallelism_Multithreading/openmp_polybench_refactored"
 RESULTS_DIR="$PROJECT_DIR/results"
 mkdir -p "$RESULTS_DIR"
 
