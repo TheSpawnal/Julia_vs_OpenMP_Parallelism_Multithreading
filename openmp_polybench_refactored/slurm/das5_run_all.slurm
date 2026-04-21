@@ -28,7 +28,7 @@ WARMUP=3
 
 BENCHMARKS="2mm 3mm cholesky correlation heat3d nussinov"
 
-PROJECT_DIR="$HOME/openmp_polybench_refactored"
+PROJECT_DIR="$HOME/latest/Julia_vs_OpenMP_Parallelism_Multithreading/openmp_polybench_refactored"
 cd "$PROJECT_DIR" || exit 1
 
 export OMP_NUM_THREADS=$THREADS
